@@ -11,7 +11,7 @@
 
 <title>
   
-    Library &middot; Open Permit
+    Develop &middot; Open Permit
   
 </title>
 
@@ -61,7 +61,7 @@
           <a href="data.html">PRDF</a>
         </li>
         <li>
-          <a href="code.html">Library</a>
+          <a href="code.html">Develop</a>
         </li>
         <li>
           <a href="">Discussions</a>
@@ -78,8 +78,8 @@
     <!-- Docs page layout -->
     <div class="bs-docs-header" id="content">
       <div class="container">
-        <h1>Libraries</h1>
-        <p>Libraries to facilitate working with the Open Permit APIs and PRDF.</p>
+        <h1>Developer Resources</h1>
+        <p>Open source libraries, discussions, news and more about the Open Permit APIs and PRDF.</p>
 
       </div>
     </div>
@@ -93,48 +93,64 @@
 <div class="bs-docs-section">
   <h1 id="overview" class="page-header">Overview</h1>
 
-  <p class="lead">Get the lowdown on the key pieces of Bootstrap's infrastructure, including our approach to better, faster, stronger web development.</p>
+  <p class="lead">This page contains a set of developer resources to help you get started with Open Permit development.</p>
 
-  <h3 id="overview-doctype">HTML5 doctype</h3>
-  <p>Bootstrap makes use of certain HTML elements and CSS properties that require the use of the HTML5 doctype. Include it at the beginning of all your projects.</p>
-<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-  ...
-<span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
+  <h3 id="overview-mail">Mailing List</h3>
+  <p>
+      The mailing list (Coming soon...) is where most communication will happen. Please join the mailing list if you are doing any work around Open Permit or if you have
+      any questions.
+  </p>
 
-  <h3 id="overview-mobile">Mobile first</h3>
-  <p>With Bootstrap 2, we added optional mobile friendly styles for key aspects of the framework. With Bootstrap 3, we've rewritten the project to be mobile friendly from the start. Instead of adding on optional mobile styles, they're baked right into the core. In fact, <strong>Bootstrap is mobile first</strong>. Mobile first styles can be found throughout the entire library instead of in separate files.</p>
-  <p>To ensure proper rendering and touch zooming, <strong>add the viewport meta tag</strong> to your <code>&lt;head&gt;</code>.</p>
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-  <p>You can disable zooming capabilities on mobile devices by adding <code>user-scalable=no</code> to the viewport meta tag. This disables zooming, meaning users are only able to scroll, and results in your site feeling a bit more like a native application. Overall, we don't recommend this on every site, so use caution!</p>
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
 
-  <h3 id="overview-type-links">Typography and links</h3>
-  <p>Bootstrap sets basic global display, typography, and link styles. Specifically, we:</p>
-  <ul>
-    <li>Set <code>background-color: #fff;</code> on the <code>body</code></li>
-    <li>Use the <code>@font-family-base</code>, <code>@font-size-base</code>, and <code>@line-height-base</code> attributes as our typographic base</li>
-    <li>Set the global link color via <code>@link-color</code> and apply link underlines only on <code>:hover</code></li>
-  </ul>
-  <p>These styles can be found within <code>scaffolding.less</code>.</p>
+  <h3 id="overview-twitter">Twitter</h3>
+  <p>Relevant developer news will also be broadcast via the Open Permit Twitter account (Coming soon).</p>
+  
 
-  <h3 id="overview-normalize">Normalize.css</h3>
-  <p>For improved cross-browser rendering, we use <a href="http://necolas.github.io/normalize.css/" target="_blank">Normalize.css</a>, a project by <a href="http://twitter.com/necolas" target="_blank">Nicolas Gallagher</a> and <a href="http://twitter.com/jon_neal" target="_blank">Jonathan Neal</a>.</p>
+  <h3 id="overview-code">Code Repositories</h3>
+  <p>
+      The API specs and PRDF documentation as well as code libraries and other source code will be distributed via the <a href="https://github.com/openpermit" target="_blank">Open Permit account on Github</a>.
+      Reference to other third party code and other resources will be referenced from this page.
+  </p>
+  
 
-  <h3 id="overview-container">Containers</h3>
-  <p>Easily center a page's contents by wrapping its contents in a <code>.container</code>. Containers set <code>width</code> at various media query breakpoints to match our grid system.</p>
-  <p>Note that, due to <code>padding</code> and fixed widths, containers are not nestable by default.</p>
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
-  ...
-<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+  <h3 id="overview-issues">Issue Tracking</h3>
+  <p>
+      The Open Permit issue tracker at <a href="https://github.com/openpermit/openpermit.github.io/issues">https://github.com/openpermit/openpermit.github.io/issues</a>
+      is primarily used to track the development of the Open Permit APIs and PRDF specs. After issues or a new feature are discussed on the mailing list,
+      tickets should be open here to ensure that they get addressed in a future milestone. This is <strong>not</strong> the place to report issues with the code libraries
+      or specific implementations of Open Permit. If you find a problem with a specific implementation, please help notify the owner of the endpoint or
+      let us know at <a href="mailto:support@epermithub.org">support@epermithub.org</a> and we will make sure to bring it up to the right organization.
+  </p> 
 </div>
 
 
-            
+<!-- Overview
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="opjs" class="page-header">openpermit.js</h1>
+
+
+  <h3 id="opjs-intro">Introduction</h3>
+  <p>
+      <strong>openpermit.js</strong> is a Javascript and Node.js library that provides wrappers around the Open Permit API and PRDF JSON support. 
+      The library allows you to filter permit requirement checklists, calculate fees and wraps API calls to make them easy to invoke. It also
+      provides utility functions for common operations such as retrieving values from UI, etc.
+  </p>
+
+
+  <h3 id="opjs-releases">Releases</h3>
+  <p>
+      Currently <strong>openpermit.js</strong> is at v0.3.0. The library is under heavy research and development and the API is very unstable. We encourage you to 
+      <a href="downloads/openpermit.js">download</a> and play with it, but do not expect the API to remain consistent.
+  </p>
+  <p>
+      Even better if you would like to contribute or have any feedback, head over to <a href="https://github.com/openpermit/openpermit.js">the GitHub repo</a> or get 
+      in contact with us at <a href="mailto:support@epermithub.org">support@epermithub.org</a>.
+  </p>
+
+  <h3 id="opjs-samples">Tutorial</h3>
+  <p>Coming soon...</p>
+</div>            
 
 
 
@@ -148,15 +164,21 @@
                 <li>
   <a href="#overview">Overview</a>
   <ul class="nav">
-    <li><a href="#overview-doctype">HTML5 doctype</a></li>
-    <li><a href="#overview-mobile">Mobile first</a></li>
-    <li><a href="#overview-type-links">Typography and links</a></li>
-    <li><a href="#overview-normalize">Normalize.css</a></li>
-    <li><a href="#overview-container">Containers</a></li>
+    <li><a href="#overview-mail">Mailing List</a></li>
+    <li><a href="#overview-twitter">Twitter</a></li>
+    <li><a href="#overview-code">Code Repositories</a></li>
+    <li><a href="#overview-issues">Issue Tracking</a></li>
   </ul>
 </li>
 
-
+<li>
+  <a href="#opjs">openpermit.js</a>
+  <ul class="nav">
+    <li><a href="#opjs-intro">Introduction</a></li>
+    <li><a href="#opjs-releses">Releases</a></li>
+    <li><a href="#opjs-samples">Tutorial</a></li>
+  </ul>
+</li>
               
             </ul>
             <a class="back-to-top" href="#top">
