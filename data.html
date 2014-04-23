@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Open Permit, the open standards for electronic permitting and plan check.">
+<meta name="keywords" content="permit, building permit, plan check, epermit, eplan">
+<meta name="author" content="Maykel Martin, Marilin Rodriguez, and Open Permit contributors">
+
+<title>
+  
+    PRDF &middot; Open Permit
+  
+</title>
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
+
+<!-- Documentation extras -->
+<link href="css/docs.css" rel="stylesheet">
+<!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- Favicons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+                               <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+
+
+  </head>
+  <body>
+    <a class="sr-only" href="#content">Skip to main content</a>
+
+    <!-- Docs master nav -->
+    <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="index.html" class="navbar-brand">Open Permit</a>
+    </div>
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+	    <li>
+          <a href="about.html">About</a>
+        </li>
+        <li>
+          <a href="api.html">APIs</a>
+        </li>
+		<li>
+          <a href="data.html">PRDF</a>
+        </li>
+        <li>
+          <a href="code.html">Library</a>
+        </li>
+        <li>
+          <a href="">Discussions</a>
+        </li>
+        <li>
+          <a href="">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <!-- Docs page layout -->
+    <div class="bs-docs-header" id="content">
+      <div class="container">
+        <h1>PRDF</h1>
+        <p>Permit Requirements Description Format, Open data format to consisely specify permit requirements.</p>
+
+      </div>
+    </div>
+
+    <div class="container bs-docs-container">
+
+      <div class="row">
+        <div class="col-md-9" role="main">
+<!-- Overview
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="overview" class="page-header">Overview</h1>
+
+  <p class="lead">Simple schemas for complex permit data representation.</p>
+
+  <h3 id="overview-intro">Introduction</h3>
+  <p>
+	  PRDF (short for Permit Requirements Description Format) defines a set of schemas to represent different types of permit related data. Complex
+      relationships and permit process details can be represented using rules and formulas by employing a declarative approach. A format is also
+      defined to represent a series of extenal fields or attributes that capture specific project information. In many of the higher level schemas, 
+      these fields are combined with rules and formulas to estimate things like specific permit requirements and applicable fees. Again all this
+      information is stored in a declarative fashion and can be stored as data so that a generic <a href="code.html">software library</a> can be used
+      to process the applicable set of schemas and determine the outputs for specific cases by just receiving as input a few values unique to a given 
+      project.  
+	</p>
+
+
+  <h3 id="overview-schema">Schema</h3>
+  <p>Currently we have not defined any formal schema specs or namespaces. These may come in the future as the spec matures. </p>
+	<div class="bs-callout bs-callout-info">
+		<h4>Open311</h4>
+		<p>Where possible this specification will reference the <a href="http://www.open311.org">Open311</a> spec to try to maintain consistency between the two APIs and minimize redundant effort.</p>
+	</div>
+</div>
+
+<!-- Lower level schemas
+ -------------------------->
+<div class="bs-docs-section">
+  <h1 id="low" class="page-header">Reusable formats</h1>
+
+  <h3 id="low-intro">Introduction</h3>
+  <p>
+      PRDF defines a set of schemas, conventions and data formats that are used in building higher level formats for a variety of purposes.
+  </p>
+  <p> <a>Fields</a> is a declarative schema that can be used specify miscelaneous required information and the type of that information.
+     Fields can be used to gather information from users, to generate user interfaces and to filter the requiremens according to the <a>conditions</a> and 
+     <a>formulas</a> specified. <a>Conditions</a> is a declarative schema that allows for the definition of complex logic rules. They can be used to specify 
+     dependencies or alternative workflows of a given process or set of requirements. <a>Formulas</a> depict a simple syntax to represent calculations,
+     much like the syntax of an Excel spreadsheet.
+  </p>
+
+  <h3 id="low-fields">Fields</h3>
+  <p>
+     Fields are the most versatile constructs defined by PRDF. Think of fields as variables in a programming language or fillable fields in a Adobe PDF
+     document. Fields are included in different higher level formats to represent external information that is needed to be able to accomplish a task,
+     filter a set of requirements or simply evaluate a formula.
+  </p>  
+  <div class="bs-callout bs-callout-info">
+		<h4>Open311</h4>
+		<p>If you are familiar with the <a href="http://www.open311.org">Open311</a> spec, fields serve a similar purpose as the attributes used to define services.</p>
+	</div>
+  <p>
+      Inside the different schemas fields always come in their own <code class="html"><span class="nt">&lt;fields</span><span class="nt">&gt;</span></code>
+      section. 
+  </p>
+  <div class="highlight"><pre><code class="html">   ...
+  <span class="nt">&lt;fields</span><span class="nt">&gt;</span>
+    ...
+  <span class="nt">&lt;/fields&gt;</span>
+  ...
+</code></pre></div>
+    <h4>Field</h4>
+  <p>Fields is an array of <code class="html"><span class="nt">&lt;field</span><span class="nt">&gt;</span></code> objects with the following 
+     structure.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>name</td>
+         <td>Name for the field. This is a string with no spaces, much like a variable name.</td>
+         <td>Required property. Unique id.</td>
+       </tr>
+       <tr>
+         <td>label</td>
+         <td>Short description or label for the field.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>desc</td>
+         <td>Long description with instructions or other help text</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>datatype</td>
+         <td>Denotes type of data stored in the field.
+             <ul>
+                 <li><code>boolean</code> a true/false or yes/no value.</li>
+                 <li><code>string</code> a string of characters without line breaks.</li>
+                 <li><code>text</code> a string of characters that may contain line breaks.</li>
+                 <li><code>numeric</code> a numeric value.</li>
+                 <li><code>list</code> a set of predefined values (specified in this field) where only one value may be selected.</li>
+                 <li><code>multilist</code> a set of predefined values (specified in this field) where several values may be selected.</li>
+                 <li><code>datetime</code> the input generated must be able to transform into a valid ISO 8601 date.</li>
+             </ul>
+         </td>
+         <td>
+             Possible values: <code>boolean</code>, <code>string</code>, <code>text</code>, <code>numeric</code>, <code>list</code>, 
+             <code>multilist</code>, <code>dtatime</code>.
+         </td>
+       </tr>
+       <tr>
+         <td>items</td>
+         <td>
+             If the <code class="html"><span class="nt">&lt;datatype</span><span class="nt">&gt;</span></code> property is <code>list</code> or <code>multilist</code>
+             this property is an array of <code><span class="nt">&lt;item</span><span class="nt">&gt;</span></code> strings that specify the possible values.
+         </td>
+         <td>Required if <code class="html"><span class="nt">&lt;datatype</span><span class="nt">&gt;</span></code> is present.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+
+
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;fields</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>numeric<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;label</span><span class="nt">&gt;</span>Project Valuation<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/field&gt;</span>
+    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>OWNERBUILDER<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>boolean<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;label</span><span class="nt">&gt;</span>Owner Builder<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/field&gt;</span>
+    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>FNAME<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>string<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;label</span><span class="nt">&gt;</span>First Name<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/field&gt;</span>
+    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>PROJDESC<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>text<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;label</span><span class="nt">&gt;</span>Project Description<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;/field&gt;</span>
+    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>STYPE<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>list<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;label</span><span class="nt">&gt;</span>Structure Type<span class="nt">&lt;/label&gt;</span>
+      <span class="nt">&lt;items</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item</span><span class="nt">&gt;</span>Residential Single family<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span><span class="nt">&gt;</span>Residential Multi-family<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span><span class="nt">&gt;</span>Commercial<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span><span class="nt">&gt;</span>Mobile Home<span class="nt">&lt;/item&gt;</span>
+      <span class="nt">&lt;/items&gt;</span>
+    <span class="nt">&lt;/field&gt;</span>
+    ...
+<span class="nt">&lt;/fields&gt;</span></code></pre></div>
+
+  <h3 id="low-conditions">Conditions</h3>
+  <p>
+     Conditions can be used to declaratively specify rules that dictate when some specific requirement or workflow step applies to a process. Conditions
+     are added to specific items within different schemas to be able to filter them depending on the specific values provided by fields. An 
+     extensive set of <code>boolean</code> expressions is supported by conditions so that complex rules can be represented. 
+  </p>  
+  <p>
+     When <strong>conditions</strong> is supported on an item, you can add <code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span></code>
+     to specify when the item applies.</p>
+  <div class="highlight"><pre><code class="html">   ...
+  <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
+    ...
+  <span class="nt">&lt;/conditions&gt;</span>
+  ...
+</code></pre></div>
+  <div class="bs-callout bs-callout-info">
+		<h4>Required items</h4>
+		<p>
+            When items that support <code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span></code> do not have one attached,
+           it is assumed by convention that the item is required.
+		</p>
+	</div>
+  <h4>Condition</h4>
+  <p>Conditions is an array of <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code> objects that are to be evaluated
+     in order from first element to last. The <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code> object has the
+     following structure.
+  </p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>field</td>
+         <td>Name of field to evaluate.</td>
+         <td>Required property.</td>
+       </tr>
+       <tr>
+         <td>value</td>
+         <td>The value with which to compare the evaluated field value.</td>
+         <td>Required property.</td>
+       </tr>
+       <tr>
+         <td>op</td>
+         <td>Specifies which comparison operator to use to compare <code>field</code> and <code>value</code>
+             <ul>
+                 <li><code>E</code> equals operator.</li>
+                 <li><code>NE</code> not equals operator.</li>
+                 <li><code>G</code> greater operator.</li>
+                 <li><code>GE</code> greater or equal operator.</li>
+                 <li><code>L</code> lower operator.</li>
+                 <li><code>LE</code> lower or equal operator.</li>
+             </ul>
+         </td>
+         <td>Possible values: <code>E</code>, <code>NE</code>, <code>G</code>, <code>GE</code>, <code>L</code>, <code>LE</code>. Default value: <code>E</code></td>
+       </tr>
+       <tr>
+         <td>logic</td>
+         <td>Logic operator if specifying multiple conditions.
+             <ul>
+                 <li><code>AND</code> and operator.</li>
+                 <li><code>OR</code> or operator.</li>
+             </ul>
+         </td>
+         <td>Required if this is not the last condition.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;field</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/field&gt;</span>
+      <span class="nt">&lt;op</span><span class="nt">&gt;</span>G<span class="nt">&lt;/op&gt;</span>
+      <span class="nt">&lt;value</span><span class="nt">&gt;</span>10000<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;logic</span><span class="nt">&gt;</span>AND<span class="nt">&lt;/logic&gt;</span>
+    <span class="nt">&lt;/condition&gt;</span>
+    <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;field</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/field&gt;</span>
+      <span class="nt">&lt;op</span><span class="nt">&gt;</span>LE<span class="nt">&lt;/op&gt;</span>
+      <span class="nt">&lt;value</span><span class="nt">&gt;</span>25000<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/condition&gt;</span>
+<span class="nt">&lt;/conditions&gt;</span></code></pre></div>
+  <p><code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span></code> can be nested to express evaluation precedence.
+  </p>
+  <div class="highlight"><pre><code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;field</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/field&gt;</span>
+      <span class="nt">&lt;op</span><span class="nt">&gt;</span>G<span class="nt">&lt;/op&gt;</span>
+      <span class="nt">&lt;value</span><span class="nt">&gt;</span>10000<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/condition&gt;</span>
+    <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;field</span><span class="nt">&gt;</span>STYPE<span class="nt">&lt;/field&gt;</span>
+        <span class="nt">&lt;value</span><span class="nt">&gt;</span>Residential Single family<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;logic</span><span class="nt">&gt;</span>OR<span class="nt">&lt;/logic&gt;</span>
+      <span class="nt">&lt;/condition&gt;</span>
+      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;field</span><span class="nt">&gt;</span>STYPE<span class="nt">&lt;/field&gt;</span>
+        <span class="nt">&lt;value</span><span class="nt">&gt;</span>Mobile Home<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;/condition&gt;</span>
+    <span class="nt">&lt;/conditions&gt;</span>
+<span class="nt">&lt;/conditions&gt;</span></code></pre></div>
+  <h3 id="low-formulas">Formulas</h3>
+  <p>
+     Formulas, like conditions, can be attached to specific items that support them to have a value calculated on the fly. Formulas must follow the same 
+     syntax as Excel Formulas part of <a href="http://msdn.microsoft.com/en-us/library/gg607163(v=office.14).aspx#IIOXML_H2" target="_blank">OOXML Standard</a> (<a href="http://www.ecma-international.org/publications/standards/Ecma-376.htm" target="_blank">ECMA-376</a>, 
+     <a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=51463" target="_blank">ISO/IEC 29500-1:2008</a>). If you prefer you can
+     also follow OpenOffice formulas <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=office" target="_blank">OpenDocument v1.2 OpenFormula (ODF v1.2 OASIS Standard)</a>. 
+     Only a subset of these specifications is needed, more work to be done exactly on what will be supported by Open Permit.
+  </p>
+  <div class="bs-callout bs-callout-info">
+		<h4>Formula tips</h4>
+		<p>
+           If you are not familiar with Excel formulas then a Google search should bring plenty of documentation on the subject.
+		</p>
+	</div>
+  <h4>Examples</h4>
+  <div class="highlight"><pre><code class="html"><span class="nt">2 + 3 * 4</span>
+
+<span class="nt">((VALUATION * - 1000) / 1000) * 5</span>
+
+<span class="nt">MAX(SQFEET * 10, 2500)</span>
+</code></pre></div>
+    
+</div>
+
+
+<!-- Checklist
+================================================== -->
+            
+<div class="bs-docs-section">
+  <h1 id="checklist" class="page-header">Checklist format</h1>
+
+  <h3 id="checklist-root">Structure</h3>
+  <p>The checklist format can be used to publish specific permit requirement information including documents to be submitted, plan review disciplines that
+     apply if any, applicable subpermits and fees. This format supports the definition of <a>conditions</a> and <a>formulas</a> that are tied to requirements so that the
+     requirements can be filtered according to project details. <a>Fields</a> can also be defined that specify miscelaneous required information needed to
+     filter the requiremens according to the <a>contitions</a> and <a>formulas</a>.
+  </p>
+    <p>
+         The root of a checklist should be a checklist object. In JSON format just <code>{...}</code>.
+    </p>
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
+      ...
+<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
+
+  <p>
+      <code><span class="nt">&lt;name</span><span class="nt">&gt;</span></code> is the only required property on this schema. You can also add a description to give a long explanation of what type of project the
+      checklist applies to.
+  </p>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;name</span><span class="nt">&gt;</span>New Residential Structure (Single family)<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;desc</span><span class="nt">&gt;</span>Minimum requirements for submittal of new residential single family structure.<span class="nt">&lt;/desc&gt;</span>
+    ...
+<span class="nt">&lt;/checklist&gt;</span>
+</code></pre></div>
+
+  <h3 id="checklist-fields">Fields section</h3>
+  <p>Add a <code class="html"><span class="nt">&lt;fields</span><span class="nt">&gt;</span></code> section to specify which external values apply to
+     this project type.</p>
+  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;fields</span><span class="nt">&gt;</span>
+      ...
+    <span class="nt">&lt;/fields&gt;</span>
+    ...
+<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
+    <p>Refer to the <a>Fields</a> format for details on the structure of the fields section.</p>
+
+  <h3 id="checklist-documents">Documents section</h3>
+  <p>Add a <code class="html"><span class="nt">&lt;documents</span><span class="nt">&gt;</span></code> section to specify which documents are required for this permit type.</p>
+  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;documents</span><span class="nt">&gt;</span>
+      ...
+    <span class="nt">&lt;/documents&gt;</span>
+    ...
+<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
+  <h4>Document</h4>
+  <p>Documents is an array of <code class="html"><span class="nt">&lt;document</span><span class="nt">&gt;</span></code> objects with the following 
+     structure.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>name</td>
+         <td>Name or short description for the document.</td>
+         <td>Required field. Unique id.</td>
+       </tr>
+       <tr>
+         <td>desc</td>
+         <td>Longer description for the document, with instructions or other help text.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>sign</td>
+         <td>
+             <ul>
+                 <li><code>true</code> denotes that the document needs to be sealed by design professional</li>
+                 <li><code>false</code> document not needs to be sealed by design professional</li>
+             </ul>
+         </td>
+         <td>Possible values: true, false. Default value: false</td>
+       </tr>
+       <tr>
+         <td>conditions</td>
+         <td>List of rules that define when this document is required in the <a>conditions</a> format.</td>
+         <td>Document is <strong>required</strong> if no conditions specified.</td>
+       </tr>
+       <tr>
+         <td>code</td>
+         <td>Short code to use when renaming the document using the applicable naming conventions.</td>
+         <td></td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;documents</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Building Application<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>APP B<span class="nt">&lt;/code&gt;</span>
+    <span class="nt">&lt;/document&gt;</span>
+    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Wind Load Calculations<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>WIND CALCS<span class="nt">&lt;/code&gt;</span>
+      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
+    <span class="nt">&lt;/document&gt;</span>
+    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Notice of Commencement<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>NOC<span class="nt">&lt;/code&gt;</span>
+    <span class="nt">&lt;/document&gt;</span>
+    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Truss Drawings<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>TRUSS<span class="nt">&lt;/code&gt;</span>
+      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
+    <span class="nt">&lt;/document&gt;</span>
+    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Owner Builder Disclosure Statement<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>OB<span class="nt">&lt;/code&gt;</span>
+      <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;field</span><span class="nt">&gt;</span>OWNERBUILDER<span class="nt">&lt;/field&gt;</span>
+          <span class="nt">&lt;value</span><span class="nt">&gt;</span>true<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/condition&gt;</span>
+      <span class="nt">&lt;/conditions&gt;</span>
+    <span class="nt">&lt;/document&gt;</span>
+    ...
+<span class="nt">&lt;/documents&gt;</span></code></pre></div>
+
+  <h3 id="checklist-disciplines">Disciplines section</h3>
+  <p>Add a <code class="html"><span class="nt">&lt;disciplines</span><span class="nt">&gt;</span></code> section to specify which disciplines are required
+     when doing plan review for this permit type.</p>
+  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;disciplines</span><span class="nt">&gt;</span>
+      ...
+    <span class="nt">&lt;/disciplines&gt;</span>
+    ...
+<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
+  <h4>Discipline</h4>
+  <p>Disciplines is an array of <code class="html"><span class="nt">&lt;discipline</span><span class="nt">&gt;</span></code> objects with the following structure.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>name</td>
+         <td>Name or short description for the document.</td>
+         <td>Required field. Unique id.</td>
+       </tr>
+       <tr>
+         <td>desc</td>
+         <td>Longer description for the document, with instructions or other help text.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>sign</td>
+         <td>
+             <ul>
+                 <li><code>true</code> denotes that the drawing type needs to be sealed by design professional</li>
+                 <li><code>false</code> drawing type not needs to be sealed by design professional</li>
+             </ul>
+         </td>
+         <td>Possible values: true, false. Default value: false</td>
+       </tr>
+       <tr>
+         <td>stamp_box</td>
+         <td>
+             Stamp box object that defines the size and position of the box needed for the jurisdiction to apply their stamp.
+         </td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>conditions</td>
+         <td>List of rules that define when this discipline is required in the <a>conditions</a> format.</td>
+         <td>Discipline is <strong>required</strong> if no conditions specified.</td>
+       </tr>
+       <tr>
+         <td>code</td>
+         <td>Short code to use when renaming the drawing using the applicable naming conventions.</td>
+         <td></td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+  <h4>Stamp box</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>size</td>
+         <td>Size of the stamp box in inches. Two numeric value separated by an "x".</td>
+         <td>Ex. <code>10x5</code></td>
+       </tr>
+       <tr>
+         <td>pos</td>
+         <td>Location in the sheet where the stmp box will be placed.</td>
+         <td>Possible values: <code>top-right</code>, <code>top-left</code>, <code>bottom-right</code>, <code>bottom-left</code>,<code>top-center</code>,<code>bottom-center</code>.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;disciplines</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Cover Sheet<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>CS<span class="nt">&lt;/code&gt;</span>
+      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
+      <span class="nt">&lt;stamp_box</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;size</span><span class="nt">&gt;</span>10x5<span class="nt">&lt;/size&gt;</span>
+        <span class="nt">&lt;pos</span><span class="nt">&gt;</span>top-right<span class="nt">&lt;/pos&gt;</span>
+      <span class="nt">&lt;/stamp_box&gt;</span>
+    <span class="nt">&lt;/discipline&gt;</span>
+    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Architectural<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>A<span class="nt">&lt;/code&gt;</span>
+      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
+    <span class="nt">&lt;/discipline&gt;</span>
+    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Electrical<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>E<span class="nt">&lt;/code&gt;</span>
+    <span class="nt">&lt;/discipline&gt;</span>
+    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Structural<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>S<span class="nt">&lt;/code&gt;</span>
+      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
+    <span class="nt">&lt;/discipline&gt;</span>
+    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Demolition<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;code</span><span class="nt">&gt;</span>DE<span class="nt">&lt;/code&gt;</span>
+      <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;field</span><span class="nt">&gt;</span>DEMO<span class="nt">&lt;/field&gt;</span>
+          <span class="nt">&lt;value</span><span class="nt">&gt;</span>true<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/condition&gt;</span>
+      <span class="nt">&lt;/conditions&gt;</span>
+    <span class="nt">&lt;/discipline&gt;</span>
+    ...
+<span class="nt">&lt;/disciplines&gt;</span></code></pre></div>
+
+  <h3 id="checklist-permits">Permits section</h3>
+  <p>Add a <code class="html"><span class="nt">&lt;permits</span><span class="nt">&gt;</span></code> section to specify which permits are required for
+     this project type.</p>
+  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;permits</span><span class="nt">&gt;</span>
+      ...
+    <span class="nt">&lt;/permits&gt;</span>
+    ...
+<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
+  <h4>Permit</h4>
+  <p>Permits is an array of <code class="html"><span class="nt">&lt;permit</span><span class="nt">&gt;</span></code> objects with the following structure.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>name</td>
+         <td>Name or short description for the permit.</td>
+         <td>Required field. Unique id.</td>
+       </tr>
+       <tr>
+         <td>desc</td>
+         <td>Longer description for the permit, with instructions or other help text.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>conditions</td>
+         <td>List of rules that define when this permit is required in the <a>conditions</a> format.</td>
+         <td>Permit is <strong>required</strong> if no conditions specified.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;permits</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Building Permit<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;/permit&gt;</span>
+    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Electrical Permit<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;/permit&gt;</span>
+    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Mechanical Permit<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;/permit&gt;</span>
+    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Plumbing Permit<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;/permit&gt;</span>
+    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Demolition Permit<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;field</span><span class="nt">&gt;</span>DEMO<span class="nt">&lt;/field&gt;</span>
+          <span class="nt">&lt;value</span><span class="nt">&gt;</span>true<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/condition&gt;</span>
+      <span class="nt">&lt;/conditions&gt;</span>
+    <span class="nt">&lt;/permit&gt;</span>
+    ...
+<span class="nt">&lt;/permits&gt;</span></code></pre></div>
+
+  <h3 id="checklist-fees">Fees section</h3>
+  <p>Add a <code class="html"><span class="nt">&lt;fees</span><span class="nt">&gt;</span></code> section to specify which fees apply to
+     this project type.</p>
+  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;fees</span><span class="nt">&gt;</span>
+      ...
+    <span class="nt">&lt;/fees&gt;</span>
+    ...
+<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
+  <h4>Fee</h4>
+  <p>Fees is an array of <code class="html"><span class="nt">&lt;fee</span><span class="nt">&gt;</span></code> objects with the following structure.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>name</td>
+         <td>Name or short description for the fee.</td>
+         <td>Required field. Unique id.</td>
+       </tr>
+       <tr>
+         <td>desc</td>
+         <td>Longer description for the fee, with instructions or explanation of the nature of the fee.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>value</td>
+         <td>The numeric fee amount or a text in the <a>formula</a> format with the formula to be used to calculate the fee.</td>
+         <td>Ex. <code>((VALUATION - 1000) / 1000) * 5</code></td>
+       </tr>
+       <tr>
+         <td>conditions</td>
+         <td>List of rules that define when this fee applies in the <a>conditions</a> format.</td>
+         <td>Fee is assumed to <strong>apply</strong> if no conditions specified.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;fees</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;fee</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Sample Flat Fee<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;value</span><span class="nt">&gt;</span>50<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/fee&gt;</span>
+    <span class="nt">&lt;fee</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Sample Formula With Condition Fee<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;value</span><span class="nt">&gt;</span>((VALUATION - 1000) / 1000) * 5<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;field</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/field&gt;</span>
+          <span class="nt">&lt;op</span><span class="nt">&gt;</span>G<span class="nt">&lt;/op&gt;</span>
+          <span class="nt">&lt;value</span><span class="nt">&gt;</span>1000<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/condition&gt;</span>
+      <span class="nt">&lt;/conditions&gt;</span>
+    <span class="nt">&lt;/fee&gt;</span>
+    ...
+<span class="nt">&lt;/fees&gt;</span></code></pre></div>
+</div>
+
+        </div>
+        <div class="col-md-3">
+          <div class="bs-docs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-docs-sidenav">            
+                <li>
+                  <a href="#overview">Overview</a>
+                  <ul class="nav">
+                    <li><a href="#overview-intri">Introduction</a></li>
+                    <li><a href="#overview-schema">Schema</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#low">Reusable formats</a>
+                  <ul class="nav">
+                    <li><a href="#low-intro">Introduction</a></li>
+                    <li><a href="#low-fields">Fields</a></li>
+                    <li><a href="#low-conditions">Conditions</a></li>
+                    <li><a href="#low-formulas">Formulas</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#checklist">Checklist format</a>
+                  <ul class="nav">
+                    <li><a href="#checklist-root">Structure</a></li>
+                    <li><a href="#checklist-fields">Documents section</a></li>
+                    <li><a href="#checklist-documents">Documents section</a></li>
+                    <li><a href="#checklist-disciplines">Disciplines section</a></li>
+                    <li><a href="#checklist-permits">Permits section</a></li>
+                    <li><a href="#checklist-fees">Fees section</a></li>
+                  </ul>
+                </li>
+
+              
+            </ul>
+            <a class="back-to-top" href="#top">
+              Back to top
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer
+================================================== -->
+<footer class="bs-docs-footer" role="contentinfo">
+  <div class="container">
+    <!--<div class="bs-docs-social">
+  <ul class="bs-docs-social-buttons">
+    <li>
+      <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=twbs&amp;repo=bootstrap&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub"></iframe>
+    </li>
+    <li>
+      <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=twbs&amp;repo=bootstrap&amp;type=fork&amp;count=true" width="102" height="20" title="Fork on GitHub"></iframe>
+    </li>
+    <li class="follow-btn">
+      <a href="https://twitter.com/twbootstrap" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @twbootstrap</a>
+    </li>
+    <li class="tweet-btn">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://getbootstrap.com/" data-count="horizontal" data-via="twbootstrap" data-related="mdo:Creator of Bootstrap">Tweet</a>
+    </li>
+  </ul>
+</div>-->
+
+
+    <p>This work is sponsored by <a href="http://www.epermithub.org" target="_blank">ePermitHub</a> with the support of <a href="http://www.epermithub.org/partners.html" target="_blank">our partners</a>.</p>
+    <p>Maintained by the <a href="https://github.com/openpermit?tab=members">core team</a> with the help of <a href="https://github.com/openpermit/graphs/contributors">our contributors</a>.</p>
+    <p>Code licensed under <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank">MIT</a>, APIs, data formats and documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+    <ul class="bs-docs-footer-links muted">
+      <li>Currently v0.3.0</li>
+      <li>&middot;</li>
+      <li><a href="https://github.com/openpermit">GitHub</a></li>
+      <li>&middot;</li>
+      <li><a href="../getting-started/#examples">Examples</a></li>
+      <li>&middot;</li>
+      <li><a href="about.html">About</a></li>
+      <li>&middot;</li>
+      <li><a href="https://github.com/openpermit/api/issues?state=open">Issues</a></li>
+      <li>&middot;</li>
+      <li><a href="https://github.com/openpermit/openpermit.js/releases">Releases</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/docs.js"></script>
+
+
+
+<script>
+  window.twttr = (function (d,s,id) {
+    var t, js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return; js=d.createElement(s); js.id=id; js.async=1;
+    js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+    return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+  }(document, "script", "twitter-wjs"));
+</script>
+
+
+
+  </body>
+</html>
