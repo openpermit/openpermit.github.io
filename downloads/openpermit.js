@@ -1,9 +1,9 @@
-﻿// OpenPermit JavaScript library v1.0.0
+﻿// OpenPermit JavaScript library v0.3.0
 // (c) ePermitHub - http://www.epermithub.org/openpermit.html
 // License: MIT (http://www.opensource.org/licenses/mit-license.php)
 var op = typeof op !== 'undefined' ? op : {};
 
-op.version = "1.0.0";
+op.version = "0.3.0";
 
 op.exportSymbol = function (opPath, object) {
     var tokens = opPath.split(".");
