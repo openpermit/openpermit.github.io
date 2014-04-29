@@ -98,21 +98,17 @@
   <h3 id="overview-intro">Introduction</h3>
   <p>
 	  PRDF (short for Permit Requirements Description Format) defines a set of schemas to represent different types of permit related data. Complex
-      relationships and permit process details can be represented using rules and formulas by employing a declarative approach. A format is also
-      defined to represent a series of extenal fields or attributes that capture specific project information. In many of the higher level schemas, 
-      these fields are combined with rules and formulas to estimate things like specific permit requirements and applicable fees. Again all this
-      information is stored in a declarative fashion and can be stored as data so that a generic <a href="code.html">software library</a> can be used
-      to process the applicable set of schemas and determine the outputs for specific cases by just receiving as input a few values unique to a given 
-      project.  
+      relationships and permit process details can be represented using a declarative and structured approach. A format is also defined to represent a
+      series of extenal inputs or fields that capture specific project information. In many of the higher level schemas, these fields are combined with
+      rules and formulas to estimate things like specific permit requirements and applicable fees. All this information is represented in a declarative 
+      fashion and can be stored as data so that a generic <a href="code.html">software</a> can be used to process the applicable set of schemas and 
+      determine the outputs for specific cases by just receiving as input a few values unique to a given permit.  
 	</p>
 
 
   <h3 id="overview-schema">Schema</h3>
   <p>Currently we have not defined any formal schema specs or namespaces. These may come in the future as the spec matures. </p>
-	<div class="bs-callout bs-callout-info">
-		<h4>Open311</h4>
-		<p>Where possible this specification will reference the <a href="http://www.open311.org">Open311</a> spec to try to maintain consistency between the two APIs and minimize redundant effort.</p>
-	</div>
+	
 </div>
 
 <!-- Lower level schemas
@@ -122,13 +118,13 @@
 
   <h3 id="low-intro">Introduction</h3>
   <p>
-      PRDF defines a set of schemas, conventions and data formats that are used in building higher level formats for a variety of purposes.
+      This section defines a set of schemas, conventions and data formats that are used in building higher level formats for a variety of purposes.
   </p>
-  <p> <a>Fields</a> is a declarative schema that can be used specify miscelaneous required information and the type of that information.
-     Fields can be used to gather information from users, to generate user interfaces and to filter the requiremens according to the <a>conditions</a> and 
-     <a>formulas</a> specified. <a>Conditions</a> is a declarative schema that allows for the definition of complex logic rules. They can be used to specify 
-     dependencies or alternative workflows of a given process or set of requirements. <a>Formulas</a> depict a simple syntax to represent calculations,
-     much like the syntax of an Excel spreadsheet.
+  <p> <a>Fields</a> is a declarative schema that can be used to specify miscelaneous required information and the type of that information.
+     Fields can be used to gather information from users, to generate user interfaces and to filter requiremens according to <a>formulas</a>
+     and <a>conditions</a> specified. <a>Formulas</a> employ a simple and familiar syntax to represent rules, calculations and transformations much like the syntax 
+     of an Excel spreadsheet. <a>Conditions</a> are properties that allow for the definition of complex logic rules. They can be used to specify 
+     dependencies or alternative workflows of a given process or set of requirements. 
   </p>
 
   <h3 id="low-fields">Fields</h3>
@@ -180,8 +176,8 @@
          <td></td>
        </tr>
        <tr>
-         <td>datatype</td>
-         <td>Denotes type of data stored in the field.
+         <td>type</td>
+         <td>Denotes the type of this field.
              <ul>
                  <li><code>boolean</code> a true/false or yes/no value.</li>
                  <li><code>string</code> a string of characters without line breaks.</li>
@@ -200,10 +196,10 @@
        <tr>
          <td>items</td>
          <td>
-             If the <code class="html"><span class="nt">&lt;datatype</span><span class="nt">&gt;</span></code> property is <code>list</code> or <code>multilist</code>
+             If the <code class="html"><span class="nt">&lt;type</span><span class="nt">&gt;</span></code> property is <code>list</code> or <code>multilist</code>
              this property is an array of <code><span class="nt">&lt;item</span><span class="nt">&gt;</span></code> strings that specify the possible values.
          </td>
-         <td>Required if <code class="html"><span class="nt">&lt;datatype</span><span class="nt">&gt;</span></code> is present.</td>
+         <td>Required if <code class="html"><span class="nt">&lt;type</span><span class="nt">&gt;</span></code> is present.</td>
        </tr>
       </tbody>
     </table>
@@ -214,27 +210,27 @@
     ...
     <span class="nt">&lt;field</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>numeric<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;type</span><span class="nt">&gt;</span>numeric<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;label</span><span class="nt">&gt;</span>Project Valuation<span class="nt">&lt;/label&gt;</span>
     <span class="nt">&lt;/field&gt;</span>
     <span class="nt">&lt;field</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>OWNERBUILDER<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>boolean<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;type</span><span class="nt">&gt;</span>boolean<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;label</span><span class="nt">&gt;</span>Owner Builder<span class="nt">&lt;/label&gt;</span>
     <span class="nt">&lt;/field&gt;</span>
     <span class="nt">&lt;field</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>FNAME<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>string<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;type</span><span class="nt">&gt;</span>string<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;label</span><span class="nt">&gt;</span>First Name<span class="nt">&lt;/label&gt;</span>
     <span class="nt">&lt;/field&gt;</span>
     <span class="nt">&lt;field</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>PROJDESC<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>text<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;type</span><span class="nt">&gt;</span>text<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;label</span><span class="nt">&gt;</span>Project Description<span class="nt">&lt;/label&gt;</span>
     <span class="nt">&lt;/field&gt;</span>
     <span class="nt">&lt;field</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>STYPE<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;datatype</span><span class="nt">&gt;</span>list<span class="nt">&lt;/datatype&gt;</span>
+      <span class="nt">&lt;type</span><span class="nt">&gt;</span>list<span class="nt">&lt;/type&gt;</span>
       <span class="nt">&lt;label</span><span class="nt">&gt;</span>Structure Type<span class="nt">&lt;/label&gt;</span>
       <span class="nt">&lt;items</span><span class="nt">&gt;</span>
         <span class="nt">&lt;item</span><span class="nt">&gt;</span>Residential Single family<span class="nt">&lt;/item&gt;</span>
@@ -246,118 +242,16 @@
     ...
 <span class="nt">&lt;/fields&gt;</span></code></pre></div>
 
-  <h3 id="low-conditions">Conditions</h3>
-  <p>
-     Conditions can be used to declaratively specify rules that dictate when some specific requirement or workflow step applies to a process. Conditions
-     are added to specific items within different schemas to be able to filter them depending on the specific values provided by fields. An 
-     extensive set of <code>boolean</code> expressions is supported by conditions so that complex rules can be represented. 
-  </p>  
-  <p>
-     When <strong>conditions</strong> is supported on an item, you can add <code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span></code>
-     to specify when the item applies.</p>
-  <div class="highlight"><pre><code class="html">   ...
-  <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
-    ...
-  <span class="nt">&lt;/conditions&gt;</span>
-  ...
-</code></pre></div>
-  <div class="bs-callout bs-callout-info">
-		<h4>Required items</h4>
-		<p>
-            When items that support <code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span></code> do not have one attached,
-           it is assumed by convention that the item is required.
-		</p>
-	</div>
-  <h4>Condition</h4>
-  <p>Conditions is an array of <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code> objects that are to be evaluated
-     in order from first element to last. The <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code> object has the
-     following structure.
-  </p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-       <tr>
-         <th style="width: 150px;">Property</th>
-         <th>Description</th>
-         <th>Notes</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-         <td>field</td>
-         <td>Name of field to evaluate.</td>
-         <td>Required property.</td>
-       </tr>
-       <tr>
-         <td>value</td>
-         <td>The value with which to compare the evaluated field value.</td>
-         <td>Required property.</td>
-       </tr>
-       <tr>
-         <td>op</td>
-         <td>Specifies which comparison operator to use to compare <code>field</code> and <code>value</code>
-             <ul>
-                 <li><code>E</code> equals operator.</li>
-                 <li><code>NE</code> not equals operator.</li>
-                 <li><code>G</code> greater operator.</li>
-                 <li><code>GE</code> greater or equal operator.</li>
-                 <li><code>L</code> lower operator.</li>
-                 <li><code>LE</code> lower or equal operator.</li>
-             </ul>
-         </td>
-         <td>Possible values: <code>E</code>, <code>NE</code>, <code>G</code>, <code>GE</code>, <code>L</code>, <code>LE</code>. Default value: <code>E</code></td>
-       </tr>
-       <tr>
-         <td>logic</td>
-         <td>Logic operator if specifying multiple conditions.
-             <ul>
-                 <li><code>AND</code> and operator.</li>
-                 <li><code>OR</code> or operator.</li>
-             </ul>
-         </td>
-         <td>Required if this is not the last condition.</td>
-       </tr>
-      </tbody>
-    </table>
-  </div><!-- /.table-responsive -->
 
-    <div class="highlight"><pre><code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;field</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/field&gt;</span>
-      <span class="nt">&lt;op</span><span class="nt">&gt;</span>G<span class="nt">&lt;/op&gt;</span>
-      <span class="nt">&lt;value</span><span class="nt">&gt;</span>10000<span class="nt">&lt;/value&gt;</span>
-      <span class="nt">&lt;logic</span><span class="nt">&gt;</span>AND<span class="nt">&lt;/logic&gt;</span>
-    <span class="nt">&lt;/condition&gt;</span>
-    <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;field</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/field&gt;</span>
-      <span class="nt">&lt;op</span><span class="nt">&gt;</span>LE<span class="nt">&lt;/op&gt;</span>
-      <span class="nt">&lt;value</span><span class="nt">&gt;</span>25000<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/condition&gt;</span>
-<span class="nt">&lt;/conditions&gt;</span></code></pre></div>
-  <p><code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span></code> can be nested to express evaluation precedence.
-  </p>
-  <div class="highlight"><pre><code class="html"><span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;field</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/field&gt;</span>
-      <span class="nt">&lt;op</span><span class="nt">&gt;</span>G<span class="nt">&lt;/op&gt;</span>
-      <span class="nt">&lt;value</span><span class="nt">&gt;</span>10000<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/condition&gt;</span>
-    <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;field</span><span class="nt">&gt;</span>STYPE<span class="nt">&lt;/field&gt;</span>
-        <span class="nt">&lt;value</span><span class="nt">&gt;</span>Residential Single family<span class="nt">&lt;/value&gt;</span>
-        <span class="nt">&lt;logic</span><span class="nt">&gt;</span>OR<span class="nt">&lt;/logic&gt;</span>
-      <span class="nt">&lt;/condition&gt;</span>
-      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;field</span><span class="nt">&gt;</span>STYPE<span class="nt">&lt;/field&gt;</span>
-        <span class="nt">&lt;value</span><span class="nt">&gt;</span>Mobile Home<span class="nt">&lt;/value&gt;</span>
-      <span class="nt">&lt;/condition&gt;</span>
-    <span class="nt">&lt;/conditions&gt;</span>
-<span class="nt">&lt;/conditions&gt;</span></code></pre></div>
-  <h3 id="low-formulas">Formulas</h3>
+  <h3 id="H1">Formulas</h3>
   <p>
-     Formulas, like conditions, can be attached to specific items that support them to have a value calculated on the fly. Formulas must follow the same 
-     syntax as Excel Formulas part of <a href="http://msdn.microsoft.com/en-us/library/gg607163(v=office.14).aspx#IIOXML_H2" target="_blank">OOXML Standard</a> (<a href="http://www.ecma-international.org/publications/standards/Ecma-376.htm" target="_blank">ECMA-376</a>, 
+     Formulas can be used in PRDF to declaratively specify dynamic expressions that need to be calculated on the fly such as rules, mathematical expressions
+     or string transformations. Each specific PRDF schema defines which properties if any are of type formula, schemas can also define a range of valid values
+     that those formulas can evaluate to. Formulas work pretty much like Excel formulas, but there are restrictions on where these formulas can appear and
+     what values they can evaluate to. 
+  </p>
+  <p>
+     In fact, formulas must follow the same syntax as Excel Formulas part of <a href="http://msdn.microsoft.com/en-us/library/gg607163(v=office.14).aspx#IIOXML_H2" target="_blank">OOXML Standard</a> (<a href="http://www.ecma-international.org/publications/standards/Ecma-376.htm" target="_blank">ECMA-376</a>, 
      <a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=51463" target="_blank">ISO/IEC 29500-1:2008</a>). If you prefer you can
      also follow OpenOffice formulas <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=office" target="_blank">OpenDocument v1.2 OpenFormula (ODF v1.2 OASIS Standard)</a>. 
      Only a subset of these specifications is needed, more work to be done exactly on what will be supported by Open Permit.
@@ -371,10 +265,34 @@
   <h4>Examples</h4>
   <div class="highlight"><pre><code class="html"><span class="nt">2 + 3 * 4</span>
 
-<span class="nt">((VALUATION * - 1000) / 1000) * 5</span>
+<span class="nt">((VALUATION - 1000) / 1000) * 5</span>
 
 <span class="nt">MAX(SQFEET * 10, 2500)</span>
 </code></pre></div>
+
+  <h3 id="low-conditions">Conditions</h3>
+  <p>
+     Conditions can be used to declaratively specify rules that dictate when some specific requirement or workflow step applies to a process. Conditions
+     are added to specific items within different schemas to be able to filter them depending on the specific values provided by fields. Conditions
+     are specified using the <a>formula</a> syntax and are attached to an item by adding the <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code>
+     property.
+  </p>  
+  <p>
+     When <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code> is supported on an item, you simply specify a formula
+     that evaluates to a <code>boolean</code> value.</p>
+  <div class="highlight"><pre><code class="html">
+  <span class="nt">&lt;item</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;condition</span><span class="nt">&gt;</span>VALUATION &gt 20000<span class="nt">&lt;/condition&gt;</span>
+  <span class="nt">&lt;/item&gt;</span>
+</code></pre></div>
+  <div class="bs-callout bs-callout-info">
+		<h4>Required items</h4>
+		<p>
+            When items that support <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code> do not have one attached,
+           it is assumed by convention that the item is required.
+		</p>
+	</div>
+    
     
 </div>
 
@@ -464,9 +382,9 @@
          <td>Possible values: true, false. Default value: false</td>
        </tr>
        <tr>
-         <td>conditions</td>
-         <td>List of rules that define when this document is required in the <a>conditions</a> format.</td>
-         <td>Document is <strong>required</strong> if no conditions specified.</td>
+         <td>condition</td>
+         <td>Logic expression that defines when this document is required. Expression must follow the <a>formula</a> syntax.</td>
+         <td>Document is <strong>required</strong> if no condition property is specified.</td>
        </tr>
        <tr>
          <td>code</td>
@@ -500,12 +418,7 @@
     <span class="nt">&lt;document</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>Owner Builder Disclosure Statement<span class="nt">&lt;/name&gt;</span>
       <span class="nt">&lt;code</span><span class="nt">&gt;</span>OB<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;field</span><span class="nt">&gt;</span>OWNERBUILDER<span class="nt">&lt;/field&gt;</span>
-          <span class="nt">&lt;value</span><span class="nt">&gt;</span>true<span class="nt">&lt;/value&gt;</span>
-        <span class="nt">&lt;/condition&gt;</span>
-      <span class="nt">&lt;/conditions&gt;</span>
+      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>OWNERBUILDER = true<span class="nt">&lt;/condition&gt;</span>
     <span class="nt">&lt;/document&gt;</span>
     ...
 <span class="nt">&lt;/documents&gt;</span></code></pre></div>
@@ -560,9 +473,9 @@
          <td></td>
        </tr>
        <tr>
-         <td>conditions</td>
-         <td>List of rules that define when this discipline is required in the <a>conditions</a> format.</td>
-         <td>Discipline is <strong>required</strong> if no conditions specified.</td>
+         <td>condition</td>
+         <td>Logic expression that defines when this discipline is required. Expression must follow the <a>formula</a> syntax.</td>
+         <td>Discipline is <strong>required</strong> if no condition property is specified.</td>
        </tr>
        <tr>
          <td>code</td>
@@ -625,12 +538,7 @@
     <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>Demolition<span class="nt">&lt;/name&gt;</span>
       <span class="nt">&lt;code</span><span class="nt">&gt;</span>DE<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;field</span><span class="nt">&gt;</span>DEMO<span class="nt">&lt;/field&gt;</span>
-          <span class="nt">&lt;value</span><span class="nt">&gt;</span>true<span class="nt">&lt;/value&gt;</span>
-        <span class="nt">&lt;/condition&gt;</span>
-      <span class="nt">&lt;/conditions&gt;</span>
+      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>DEMO = true<span class="nt">&lt;/condition&gt;</span>
     <span class="nt">&lt;/discipline&gt;</span>
     ...
 <span class="nt">&lt;/disciplines&gt;</span></code></pre></div>
@@ -668,9 +576,9 @@
          <td></td>
        </tr>
        <tr>
-         <td>conditions</td>
-         <td>List of rules that define when this permit is required in the <a>conditions</a> format.</td>
-         <td>Permit is <strong>required</strong> if no conditions specified.</td>
+         <td>condition</td>
+         <td>Logic expression that defines when this permit is required. Expression must follow the <a>formula</a> syntax.</td>
+         <td>Permit is <strong>required</strong> if no condition property is specified.</td>
        </tr>
       </tbody>
     </table>
@@ -692,12 +600,7 @@
     <span class="nt">&lt;/permit&gt;</span>
     <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>Demolition Permit<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;field</span><span class="nt">&gt;</span>DEMO<span class="nt">&lt;/field&gt;</span>
-          <span class="nt">&lt;value</span><span class="nt">&gt;</span>true<span class="nt">&lt;/value&gt;</span>
-        <span class="nt">&lt;/condition&gt;</span>
-      <span class="nt">&lt;/conditions&gt;</span>
+      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>DEMO = true<span class="nt">&lt;/condition&gt;</span>
     <span class="nt">&lt;/permit&gt;</span>
     ...
 <span class="nt">&lt;/permits&gt;</span></code></pre></div>
@@ -740,9 +643,9 @@
          <td>Ex. <code>((VALUATION - 1000) / 1000) * 5</code></td>
        </tr>
        <tr>
-         <td>conditions</td>
-         <td>List of rules that define when this fee applies in the <a>conditions</a> format.</td>
-         <td>Fee is assumed to <strong>apply</strong> if no conditions specified.</td>
+         <td>condition</td>
+         <td>Logic expression that defines when this fee is required. Expression must follow the <a>formula</a> syntax.</td>
+         <td>Fee is assumed to <strong>apply</strong> if no condition property is specified.</td>
        </tr>
       </tbody>
     </table>
@@ -757,13 +660,7 @@
     <span class="nt">&lt;fee</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name</span><span class="nt">&gt;</span>Sample Formula With Condition Fee<span class="nt">&lt;/name&gt;</span>
       <span class="nt">&lt;value</span><span class="nt">&gt;</span>((VALUATION - 1000) / 1000) * 5<span class="nt">&lt;/value&gt;</span>
-      <span class="nt">&lt;conditions</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;condition</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;field</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/field&gt;</span>
-          <span class="nt">&lt;op</span><span class="nt">&gt;</span>G<span class="nt">&lt;/op&gt;</span>
-          <span class="nt">&lt;value</span><span class="nt">&gt;</span>1000<span class="nt">&lt;/value&gt;</span>
-        <span class="nt">&lt;/condition&gt;</span>
-      <span class="nt">&lt;/conditions&gt;</span>
+      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>VALUATION &gt; 1000<span class="nt">&lt;/condition&gt;</span>
     <span class="nt">&lt;/fee&gt;</span>
     ...
 <span class="nt">&lt;/fees&gt;</span></code></pre></div>
@@ -785,8 +682,8 @@
                   <ul class="nav">
                     <li><a href="#low-intro">Introduction</a></li>
                     <li><a href="#low-fields">Fields</a></li>
-                    <li><a href="#low-conditions">Conditions</a></li>
                     <li><a href="#low-formulas">Formulas</a></li>
+                    <li><a href="#low-conditions">Conditions</a></li>
                   </ul>
                 </li>
                 <li>
