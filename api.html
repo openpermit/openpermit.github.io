@@ -64,7 +64,7 @@
           <a href="code.html">Develop</a>
         </li>
         <li>
-          <a href="https://groups.google.com/forum/#!forum/open-permit">Discussions</a>
+          <a href="https://groups.google.com/forum/#!forum/open-permit" target="_blank">Discussions</a>
         </li>
         <li>
           <a href="https://github.com/openpermit" target="_blank">GitHub</a>
@@ -713,7 +713,7 @@
         <li>400 - permit_no was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
-  <h3 id="api-runchecklist">GET runchecklist</h3>
+  <h3 id="api-vchecklist">GET verifychecklist</h3>
   <p>Tallies all the items fulfilled for a particular permit application against it's checklist and returns the status of each checklist item as fulfilled or missing. 
   When all requirements are fulfilled the permit record is ready to move to the next status and start the permitting process.</p>
   <div class="table-responsive">
@@ -727,11 +727,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/runchecklist.[format]</td>
+         <td>http://[API endpoint]/verifychecklist.[format]</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/runchecklist.json?id=guid&permit_no=B4356787</td>
+         <td>http://epermithub.org/verifychecklist.json?id=guid&permit_no=B4356787</td>
        </tr>
        <tr>
          <td>Formats</td>
@@ -918,7 +918,7 @@
 	<li><a href="#api-forms">GET forms</a></li>
 	<li><a href="#api-application">GET application</a></li>
 	<li><a href="#api-papplication">POST application</a></li>
-	<li><a href="#api-runchecklist">GET runchecklist</a></li>
+	<li><a href="#api-vchecklist">GET verifychecklist</a></li>
 	<li><a href="#api-pchecklist">POST checklist</a></li>
   </ul>
 </li>
