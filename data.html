@@ -55,7 +55,7 @@
           <a href="about.html">About</a>
         </li>
         <li>
-          <a href="api.html">APIs</a>
+          <a href="api.html">API</a>
         </li>
 		<li>
           <a href="data.html">PRDF</a>
@@ -120,10 +120,10 @@
   <p>
       This section defines a set of schemas, conventions and data formats that are used in building higher level formats for a variety of purposes.
   </p>
-  <p> <a>Fields</a> is a declarative schema that can be used to specify miscellaneous required information and the type of that information.
-     Fields can be used to gather information from users, to generate user interfaces and to filter requiremens according to <a>formulas</a>
-     and <a>conditions</a> specified. <a>Formulas</a> employ a simple and familiar syntax to represent rules, calculations and transformations much like the syntax 
-     of an Excel spreadsheet. <a>Conditions</a> are properties that allow for the definition of complex logic rules. They can be used to specify 
+  <p> <a href="#low-fields">Fields</a> is a declarative schema that can be used to specify miscellaneous required information and the type of that information.
+     Fields can be used to gather information from users, to generate user interfaces and to filter requiremens according to <a href="#low-formulas">formulas</a>
+     and <a href="#low-conditions">conditions</a> specified. <a href="#low-formulas">Formulas</a> employ a simple and familiar syntax to represent rules, calculations and transformations much like the syntax 
+     of an Excel spreadsheet. <a href="#low-conditions">Conditions</a> are properties that allow for the definition of complex logic rules. They can be used to specify 
      dependencies or alternative workflows of a given process or set of requirements. 
   </p>
 
@@ -243,7 +243,7 @@
 <span class="nt">&lt;/fields&gt;</span></code></pre></div>
 
 
-  <h3 id="H1">Formulas</h3>
+  <h3 id="low-formulas">Formulas</h3>
   <p>
      Formulas can be used in PRDF to declaratively specify dynamic expressions that need to be calculated on the fly such as rules, mathematical expressions
      or string transformations. Each specific PRDF schema defines which properties if any are of type formula, schemas can also define a range of valid values
@@ -274,7 +274,7 @@
   <p>
      Conditions can be used to declaratively specify rules that dictate when some specific requirement or workflow step applies to a process. Conditions
      are added to specific items within different schemas to be able to filter them depending on the specific values provided by fields. Conditions
-     are specified using the <a>formula</a> syntax and are attached to an item by adding the <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code>
+     are specified using the <a href="#low-formulas">formula</a> syntax and are attached to an item by adding the <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code>
      property.
   </p>  
   <p>
