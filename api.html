@@ -58,13 +58,13 @@
           <a href="api.html">API</a>
         </li>
 		<li>
-          <a href="data.html">PRDF</a>
+          <a href="data.html">Schemas</a>
         </li>
         <li>
           <a href="code.html">Develop</a>
         </li>
         <li>
-          <a href="https://groups.google.com/forum/#!forum/open-permit" target="_blank">Discussions</a>
+          <a href="https://github.com/openpermit/openpermit.github.io/issues/" target="_blank">Discussions</a>
         </li>
         <li>
           <a href="https://github.com/openpermit" target="_blank">GitHub</a>
@@ -123,7 +123,7 @@
 
   <p>UTF-8 is required everywhere.</p>
   <p>
-  All text returned by the service, whether in XML, JSON, or any other text-based content-type, MUST be encoded as UTF-8. Appropriate HTTP headers must be set, and the
+  All text returned by the service, whether in JSON, XML, or any other text-based content-type, MUST be encoded as UTF-8. Appropriate HTTP headers must be set, and the
   root element must be preceded with the XML declaration including the encoding="UTF-8" attribute. All text received by the service from the client will be assumed to
   be UTF-8 and must be decoded accordingly. Examples of the HTTP content-type headers for each format are shown below under Format Support.
   </p>
@@ -134,7 +134,10 @@
 ================================================== -->
 <div class="bs-docs-section">
   <h1 id="format" class="page-header">Format support</h1>
-
+  <h3 id="format-json">JSON</h3>
+	<p>
+		JSON is the default and only required format for the API and should be Content-Type: application/json. 
+	</p>
   <h3 id="format-xml">XML</h3>
 	<p>
 	   XML for the API should be Content-Type: text/xml. The XML output currently defined is schemaless and without a 
@@ -143,19 +146,6 @@
 	   strictly and do not include foreign tags or namespaces. It is also assumed that the default namespace is not specified,
 	   but if it must be specified, the XMLNS URI is the URL of the specification: <a href="http://www.openpermit.org">http://www.openpermit.org</a>
 	</p>
-	<h3 id="format-json">JSON</h3>
-	<p>
-		JSON for the API should be Content-Type: application/json. JSON support is based on a programmatic mapping of the XML
-		format using the Spark Convention. This means that if you have an XML file, you can easily generate the JSON version
-		with XSL. This can be done using a server side XSLT.
-	</p>
-    <h3 id="format-prdf">PRDF</h3>
-	<p>
-		<a href="data.html">PRDF (short for Permit Requirements Description Format)</a> defines a set of schemas to represent certain types of data returned or uploaded to the
-        services. Currently these schemas will not be formally specified and will have no namespace, but their structure shall be enforced by the services.
-        The specification will dictate which schema is supported by which service. Schemas are designed such that JSON support can be provided based on a
-        programmatic mapping of the XML format using the Spark Convention.
-	</p>
 </div>
 
 <!-- Definitions
@@ -163,9 +153,9 @@
 <div class="bs-docs-section">
   <h1 id="defs" class="page-header">Definitions</h1>
 
-  <h3 id="defs_id">jurisdiction_id</h3>
+  <h3 id="defs_id">jurisdiction</h3>
   <p>
-	   As a means to allow this API to distinguish multiple jurisdictions within one API endpoint we've included a "jurisdiction_id" which will be the unique
+	   As a means to allow this API to distinguish multiple jurisdictions within one API endpoint we've included a "jurisdiction" which will be the unique
 	   identifier for permitting issuing jurisdictions. We suggest that implementations use the jurisdiction's Census FIPS Code as defined by the US Census Permits 
 	   Survey.
 	</p>
@@ -209,7 +199,7 @@
   <h1 id="apir" class="page-header">Requirements Section</h1>
 
   <!-- APIs -->
-  <h3 id="apir-checklists">GET checklists</h3>
+  <h3 id="apir-checklists">GET permit types</h3>
   <p>Retrieves the lists of all permit / project types for a jurisdiction.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -222,15 +212,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/checklists.[format]</td>
+         <td>http://[API endpoint]/permits/types</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/checklists.json?jurisdiction_id=12095</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/types?jurisdiction=0001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -255,7 +241,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>jurisdiction_id</td>
+         <td>jurisdiction</td>
          <td>Id of jusrisdiction as defined by the service endpoint.</td>
          <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
@@ -264,7 +250,7 @@
   </div><!-- /.table-responsive -->
   <h4>Response</h4>
   <p>
-     An array of <code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span></code> objects with the following 
+     An array of <code>{permit type}</code> objects with the following 
      structure.
   </p>
   <div class="table-responsive">
@@ -279,60 +265,60 @@
       <tbody>
        <tr>
          <td>id</td>
-         <td>Service endpoint assigned identifier for the checklist.</td>
+         <td>Service endpoint assigned identifier for the permit type.</td>
          <td>Required</td>
        </tr>
        <tr>
          <td>name</td>
-         <td>Short description of the checklist.</td>
+         <td>Short description of the permit.</td>
          <td>Required.</td>
        </tr>
        <tr>
          <td>desc</td>
-         <td>Long description / help text for the checklist.</td>
+         <td>Long description / help text for the permit type.</td>
          <td></td>
        </tr>
        <tr>
          <td>group</td>
-         <td>A category to group this checklist within. This provides a way to group several checklists under one category.</td>
+         <td>A category to group this permit type within. This provides a way to group several permit types under one category.</td>
          <td></td>
        </tr>
       </tbody>
     </table>
   </div><!-- /.table-responsive -->
-  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklists</span><span class="nt">&gt;</span>
+  <h4>Example</h4>
+    <div class="highlight"><pre><code class="js"><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;54181792-ac3c-4694-9089-32aae77cf110&#39;</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Demolition Permit&#39;</span>
+      <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Description of demolition permit.&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;742f92c1-04f3-42bd-b0e6-6821bf71a4d2&#39;</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Electrical Permit&#39;</span>
+      <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Description of electrical permit.&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;c62c9d29-b085-45c7-b679-b91478603fe1&#39;</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Gas Permit&#39;</span>
+      <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Description of gas permit.&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;47c958fa-0f1e-4915-8749-f370c4b8bdcf&#39;</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;New Commercial Structure Permit&#39;</span>
+      <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Description new commercial structure building permit.&#39;</span>
+    <span class="p">},</span>
     ...
-    <span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;id</span><span class="nt">&gt;</span>54181792-ac3c-4694-9089-32aae77cf110<span class="nt">&lt;/id&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Demolition<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;desc</span><span class="nt">&gt;</span>Minimum requirements for submittal of demolition permit.<span class="nt">&lt;/desc&gt;</span>
-    <span class="nt">&lt;/checklist&gt;</span>
-    <span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;id</span><span class="nt">&gt;</span>742f92c1-04f3-42bd-b0e6-6821bf71a4d2<span class="nt">&lt;/id&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Electrical<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;desc</span><span class="nt">&gt;</span>Minimum requirements for submittal of electrical permit.<span class="nt">&lt;/desc&gt;</span>
-    <span class="nt">&lt;/checklist&gt;</span>
-    <span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;id</span><span class="nt">&gt;</span>c62c9d29-b085-45c7-b679-b91478603fe1<span class="nt">&lt;/id&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Gas<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;desc</span><span class="nt">&gt;</span>Minimum requirements for submittal of a gas permit.<span class="nt">&lt;/desc&gt;</span>
-    <span class="nt">&lt;/checklist&gt;</span>
-    <span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;id</span><span class="nt">&gt;</span>47c958fa-0f1e-4915-8749-f370c4b8bdcf<span class="nt">&lt;/id&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>New Commercial Structure<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>Minimum requirements for submittal of new commercial structure building permit.<span class="nt">&lt;/code&gt;</span>
-    <span class="nt">&lt;/checklist&gt;</span>
-    ...
-<span class="nt">&lt;/checklists&gt;</span></code></pre></div>
+<span class="p">]</span></code></pre></div>
 
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction_id provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction_id was not provided (specify in error response)</li>
+        <li>404 - jurisdiction provided was not found (specify in error response)</li>
+        <li>400 - jurisdiction was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
-  <h3 id="apir-checklist">GET checklist</h3>
-  <p>Retrieves a permit / project type checklist containing the requirements for the specified permit / project type including applicant and project specific information, 
+  <h3 id="apir-checklist">GET permit type checklist</h3>
+  <p>Retrieves a permit / project type checklist containing the requirements for the specified permit / project type including project detail information, 
      documents to be submitted, fee schedule, plan review disciplines and subpermits if applicable.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -345,15 +331,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/checklist.[format]</td>
+         <td>http://[API endpoint]/permits/types/{id}/checklist</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/checklist.json?id=guid</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/types/0001-Building-Commercial-Addition-NA/checklist?jurisdiction=0001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -379,7 +361,7 @@
       <tbody>
        <tr>
          <td>id</td>
-         <td>Unique id for the permit checklist within this endpoint.</td>
+         <td>Permit type id for the checklist to be retrieved.</td>
          <td>Required</td>
        </tr>
       </tbody>
@@ -408,15 +390,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/standards.[format]</td>
+         <td>http://[API endpoint]/permits/standards</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/standards.json?jurisdiction_id=12095</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/standards?jurisdiction=0001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -441,7 +419,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>jurisdiction_id</td>
+         <td>jurisdiction</td>
          <td>Id of jusrisdiction as defined by the service endpoint.</td>
          <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
@@ -478,15 +456,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/forms.[format]</td>
+         <td>http://[API endpoint]/permits/forms</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/forms.json?jurisdiction_id=12095</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/forms?jurisdiction=0001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -511,7 +485,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>jurisdiction_id</td>
+         <td>jurisdiction</td>
          <td>Id of jusrisdiction as defined by the service endpoint.</td>
          <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
@@ -520,8 +494,7 @@
   </div><!-- /.table-responsive -->
   <h4>Response</h4>
   <p>
-     An array of <code class="html"><span class="nt">&lt;form</span><span class="nt">&gt;</span></code> objects with the following 
-     structure.
+     An array of <code>form</code> objects with the following structure.
   </p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -556,30 +529,30 @@
       </tbody>
     </table>
   </div><!-- /.table-responsive -->
-  <div class="highlight"><pre><code class="html"><span class="nt">&lt;forms</span><span class="nt">&gt;</span>
+  
+    <div class="highlight"><pre><code class="js"><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Building Application incl. Permit Application&#39;</span>
+      <span class="nx">group</span><span class="o">:</span> <span class="s1">&#39;Commercial Permitting (Required Forms)&#39;</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://www.ocfl.net/Portals/.../forms/Building Permit Application Interactive 030713.pdf&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;>Commercial Plans Coordination Route Sheet&#39;</span>
+      <span class="nx">group</span><span class="o">:</span> <span class="s1">&#39;>Commercial Permitting (Required Forms)&#39;</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;>http://www.ocfl.net/Portals/0/resource library/permits - licenses/Commercial Coordination Route.pdf&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Notice of Commencement&#39;</span>
+      <span class="nx">group</span><span class="o">:</span> <span class="s1">&#39;Commercial Permitting (Required Forms)&#39;</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://www.ocfl.net/Portals/0/resource library/permits - licenses/Commencement Notice.pdf&#39;</span>
+    <span class="p">},</span>
     ...
-    <span class="nt">&lt;form</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Building Application incl. Permit Application<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;group</span><span class="nt">&gt;</span>Commercial Permitting (Required Forms)<span class="nt">&lt;/group&gt;</span>
-      <span class="nt">&lt;url</span><span class="nt">&gt;</span>http://www.ocfl.net/Portals/0/Library/Permitting-Licensing/forms/Building Permit Application Interactive 030713.pdf<span class="nt">&lt;/url&gt;</span>
-    <span class="nt">&lt;/form&gt;</span>
-    <span class="nt">&lt;form</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Commercial Plans Coordination Route Sheet<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;group</span><span class="nt">&gt;</span>Commercial Permitting (Required Forms)<span class="nt">&lt;/group&gt;</span>
-      <span class="nt">&lt;url</span><span class="nt">&gt;</span>http://www.ocfl.net/Portals/0/resource library/permits - licenses/Commercial Coordination Route.pdf<span class="nt">&lt;/url&gt;</span>
-    <span class="nt">&lt;/form&gt;</span>
-    <span class="nt">&lt;form</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Notice of Commencement<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;group</span><span class="nt">&gt;</span>Commercial Permitting (Required Forms)<span class="nt">&lt;/group&gt;</span>
-      <span class="nt">&lt;url</span><span class="nt">&gt;</span>http://www.ocfl.net/Portals/0/resource library/permits - licenses/Commencement Notice.pdf<span class="nt">&lt;/url&gt;</span>
-    <span class="nt">&lt;/form&gt;</span>
-    ...
-<span class="nt">&lt;/forms&gt;</span></code></pre></div>
+<span class="p">]</span></code></pre></div>
 
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction_id provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction_id was not provided (specify in error response)</li>
+        <li>404 - jurisdiction provided was not found (specify in error response)</li>
+        <li>400 - jurisdiction was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
 </div>
@@ -604,15 +577,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/registration.[format]</td>
+         <td>http://[API endpoint]/registration</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/registration.json?jurisdiction_id=12095</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/registration?jurisdiction=0001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -637,7 +606,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>jurisdiction_id</td>
+         <td>jurisdiction</td>
          <td>Id of jusrisdiction as defined by the service endpoint.</td>
          <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
@@ -667,8 +636,8 @@
   </div>
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction_id provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction_id was not provided (specify in error response)</li>
+        <li>404 - jurisdiction provided was not found (specify in error response)</li>
+        <li>400 - jurisdiction was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apia-pregistration">POST registration</h3>
@@ -684,15 +653,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/registration.[format]</td>
+         <td>http://[API endpoint]/registration</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/registration.json</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/registration</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -743,13 +708,12 @@
   </div>
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction_id provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction_id was not provided (specify in error response)</li>
+        <li>404 - jurisdiction provided was not found (specify in error response)</li>
+        <li>400 - jurisdiction was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apia-application">GET application</h3>
-  <p>Retrieves the set of information collected to start the application process for a particular type of permit. The specific fields are defined by the
-     associated checklist for the permit type.
+  <p>Retrieves the set of information collected to start the application process for a particular type of permit. 
   </p>
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -762,15 +726,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/application.[format]</td>
+         <td>http://[API endpoint]/permits/types/{id}/application</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/application.json?jurisdiction_id=12095&permit_no=B5466555</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.org/permits/types/0001-Building-Commercial-Addition-NA/application?jurisdiction=0001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -778,7 +738,7 @@
        </tr>
        <tr>
          <td>Requires API Key</td>
-         <td>Yes</td>
+         <td>No</td>
        </tr>
       </tbody>
     </table>
@@ -795,13 +755,13 @@
       </thead>
       <tbody>
        <tr>
-         <td>jurisdiction_id</td>
+         <td>jurisdiction</td>
          <td>Id of jusrisdiction as defined by the service endpoint.</td>
          <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
        <tr>
-         <td>permit_no</td>
-         <td>Permit number for application to be retrieved.</td>
+         <td>id</td>
+         <td>Permit type id for application to be retrieved.</td>
          <td>Required.</td>
        </tr>
       </tbody>
@@ -809,117 +769,15 @@
   </div><!-- /.table-responsive -->
   <h4>Response</h4>
   <p>
-      List of fields in <a href="data.html#low-fields" target="_blank">PRDF Fields format</a>.
+      List of fields in <a href="data.html#application" target="_blank">PRDF Application format</a>.
   </p>
-  <h4>Predefined Response Fields</h4>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-       <tr>
-         <th style="width: 150px;">Name</th>
-         <th>Description</th>
-         <th>Notes</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-         <td colspan="3"><h1>TBD</h1></td>
-       </tr>
-      </tbody>
-    </table>
-  </div>
   <h4>Possible errors</h4>
     <ul>
         <li>404 - id provided was not found (specify in error response)</li>
         <li>400 - id was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
-  <h3 id="apia-papplication">POST application</h3>
-  <p>
-     Submits or updates the information needed to open a permit application for a particular type of permit. 
-  </p>
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-       <tr>
-         <th style="width: 150px;">Property</th>
-         <th>Description</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-         <td>URL</td>
-         <td>http://[API endpoint]/application.[format]</td>
-       </tr>
-       <tr>
-         <td>Sample URL</td>
-         <td>http://epermithub.org/application.json</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
-       </tr>
-       <tr>
-         <td>HTTP Method</td>
-         <td>POST</td>
-       </tr>
-       <tr>
-         <td>Requires API Key</td>
-         <td>Yes</td>
-       </tr>
-      </tbody>
-    </table>
-  </div><!-- /.table-responsive -->
-  <h4>Arguments</h4>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-       <tr>
-         <th style="width: 150px;">Name</th>
-         <th>Description</th>
-         <th>Notes</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-         <td>permit_no</td>
-         <td>Permit number for application to be updated.</td>
-         <td>If specified, it updates the permit aplication information for the given permit, otherwise it creates a new permit record.</td>
-       </tr>
-       <tr>
-         <td>fields</td>
-         <td>List of fields in <a href="data.html#low-fields">PRDF Fields format</a>.</td>
-         <td>Required.</td>
-       </tr>
-      </tbody>
-    </table>
-  </div><!-- /.table-responsive -->
-  <h4>Response</h4>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-       <tr>
-         <th style="width: 150px;">Name</th>
-         <th>Description</th>
-         <th>Notes</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-         <td>permit_no</td>
-         <td>The permit number associated with this application.</td>
-         <td></td>
-       </tr>
-      </tbody>
-    </table>
-  </div>
-  <h4>Possible errors</h4>
-    <ul>
-        <li>404 - permit_no provided was not found (specify in error response)</li>
-        <li>400 - permit_no was not provided (specify in error response)</li>
-        <li>500 - General service error (Unknown error. The client will need to notify us)</li>
-    </ul>
-  <h3 id="apia-vchecklist">GET verifychecklist</h3>
+  <h3 id="apia-vchecklist">GET verify checklist</h3>
   <p>Tallies all the items fulfilled for a particular permit application against it's checklist and returns the status of each checklist item as fulfilled or missing. 
   When all requirements are fulfilled the permit record is ready to move to the next status and start the permitting process.</p>
   <div class="table-responsive">
@@ -933,15 +791,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/verifychecklist.[format]</td>
+         <td>http://[API endpoint]/permits/{id}/checklist/verify</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/verifychecklist.json?id=guid&permit_no=B4356787</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/checklist/verify?jurisdiction=0001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -966,12 +820,12 @@
       </thead>
       <tbody>
        <tr>
-         <td>id</td>
-         <td>Unique id for the permit checklist within this endpoint.</td>
-         <td>Required.</td>
+         <td>jurisdiction</td>
+         <td>Id of jusrisdiction as defined by the service endpoint.</td>
+         <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number for which to run the checklist against.</td>
          <td>Required.</td>
        </tr>
@@ -1014,15 +868,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/permits.[format]</td>
+         <td>http://[API endpoint]/permits</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/permits.json?filter=tbd</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits?filter=tbd</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1090,15 +940,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/permit.[format]</td>
+         <td>http://[API endpoint]/permit/{permitno}</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/permit.json?jurisdiction_id=12095&permit_no=B54567554</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.org/permits/BLD-34354-001?jurisdiction=0001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1123,12 +969,12 @@
       </thead>
       <tbody>
        <tr>
-         <td>jurisdiction_id</td>
+         <td>jurisdiction</td>
          <td>Id of jusrisdiction as defined by the service endpoint.</td>
          <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number for which to retrieve detailed information.</td>
          <td>Required.</td>
        </tr>
@@ -1156,6 +1002,82 @@
     <ul>
         <li>404 - jurisdiction_id or permit_no provided was not found (specify in error response)</li>
         <li>400 - jurisdiction_id or permit_no was not provided (specify in error response)</li>
+        <li>500 - General service error (Unknown error. The client will need to notify us)</li>
+    </ul>
+  <h3 id="apia-papplication">PUT permit</h3>
+  <p>
+     Submits the information needed to open a permit application for a particular type of permit. 
+  </p>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>URL</td>
+         <td>http://[API endpoint]/permits</td>
+       </tr>
+       <tr>
+         <td>Sample URL</td>
+         <td>http://epermithub.com/permits</td>
+       </tr>
+       <tr>
+         <td>HTTP Method</td>
+         <td>PUT</td>
+       </tr>
+       <tr>
+         <td>Requires API Key</td>
+         <td>Yes</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+  <h4>Arguments</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Name</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>fields</td>
+         <td>List of fields in <a href="data.html#low-fields">PRDF Fields format</a>.</td>
+         <td>Required.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+  <h4>Response</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Name</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>permitno</td>
+         <td>The permit number associated with this application.</td>
+         <td></td>
+       </tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Possible errors</h4>
+    <ul>
+        <li>404 - permit_no provided was not found (specify in error response)</li>
+        <li>400 - permit_no was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apia-pchecklist">POST permit</h3>
@@ -1204,8 +1126,13 @@
       </thead>
       <tbody>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number to update.</td>
+         <td>Required.</td>
+       </tr>
+       <tr>
+         <td>fields</td>
+         <td>List of fields in <a href="data.html#low-fields">PRDF Fields format</a>.</td>
          <td>Required.</td>
        </tr>
       </tbody>
@@ -1255,15 +1182,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/documentation.[format]</td>
+         <td>http://[API endpoint]/permits/{permitno}/documentation</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/documentation.json?permit_no=B4356787</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/documentation</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1288,7 +1211,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number for which to retrieve documentation.</td>
          <td>Required.</td>
        </tr>
@@ -1333,15 +1256,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/revisions.[format]</td>
+         <td>http://[API endpoint]/permits/{permitno}/revisions</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/revisions.json?permit_no=B4356787</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/revisions</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1366,7 +1285,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number for which to retrieve revisions.</td>
          <td>Required.</td>
        </tr>
@@ -1412,15 +1331,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/markups.[format]</td>
+         <td>http://[API endpoint]/permits/{permitno}/markups</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/markups.json?permit_no=B4356787</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/BLD-34354-001/markups</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1445,7 +1360,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number for which to retrieve markups.</td>
          <td>Required.</td>
        </tr>
@@ -1500,15 +1415,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/inspections.[format]</td>
+         <td>http://[API endpoint]/permits/{permitno}/inspections</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/inspections.json?jurisdiction_id=12095&permit_no=B45456765</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/inspections</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1533,12 +1444,12 @@
       </thead>
       <tbody>
        <tr>
-         <td>jurisdiction_id</td>
+         <td>jurisdiction</td>
          <td>Id of jusrisdiction as defined by the service endpoint.</td>
          <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number for which to retrive the list of inspections.</td>
          <td>Required.</td>
        </tr>
@@ -1581,15 +1492,11 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/inspection.[format]</td>
+         <td>http://[API endpoint]/permits/{permitno}/inspections/{id}</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/inspection.json?jurisdiction_id=12095?permit_no=B5466455&inspection=5</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/inspections/INSP-12</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1614,17 +1521,17 @@
       </thead>
       <tbody>
        <tr>
-         <td>jurisdiction_id</td>
+         <td>jurisdiction</td>
          <td>Id of jusrisdiction as defined by the service endpoint.</td>
          <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number for which to retrive inspection details.</td>
          <td>Required.</td>
        </tr>
        <tr>
-         <td>inspection</td>
+         <td>id</td>
          <td>The inspection id or number to retrieve details about.</td>
          <td>Required.</td>
        </tr>
@@ -1654,8 +1561,8 @@
         <li>400 - Required parameter was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
-  <h3 id="apip-pinspection">POST inspection</h3>
-  <p>Schedules new inspection or reschedules an existing one.</p>
+  <h3 id="apip-pinspection">PUT inspection</h3>
+  <p>Schedules new inspection.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
@@ -1667,19 +1574,15 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/inspection.[format]</td>
+         <td>http://[API endpoint]/permits/{permitno}/inspections</td>
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/inspection.json?permit_no=B456776</td>
-       </tr>
-       <tr>
-         <td>Formats</td>
-         <td>XML (JSON available if denoted by Service Discovery)</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/inspections</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
-         <td>POST</td>
+         <td>PUT</td>
        </tr>
        <tr>
          <td>Requires API Key</td>
@@ -1700,9 +1603,12 @@
       </thead>
       <tbody>
        <tr>
-         <td>permit_no</td>
+         <td>permitno</td>
          <td>Permit number for which to schedule the inspection.</td>
          <td>Required.</td>
+       </tr>
+       <tr>
+         <td colspan="3"><h1>TBD</h1></td>
        </tr>
       </tbody>
     </table>
@@ -1752,7 +1658,6 @@
   <ul class="nav">
     <li><a href="#format-xml">XML</a></li>
     <li><a href="#format-json">JSON</a></li>
-      <li><a href="#format-prdf">PRDF</a></li>
   </ul>
 </li>
 <li>
@@ -1769,8 +1674,8 @@
 <li>
   <a href="#apir">Requirements Section</a>
   <ul class="nav">
-    <li><a href="#apir-checklists">GET checklists</a></li>
-	<li><a href="#apir-checklist">GET checklist</a></li>
+    <li><a href="#apir-checklists">GET permit types</a></li>
+	<li><a href="#apir-checklist">GET permit type checklist</a></li>
     <li><a href="#apir-standards">GET standards</a></li>
 	<li><a href="#apir-forms">GET forms</a></li>
   </ul>
@@ -1781,10 +1686,10 @@
     <li><a href="#apia-registration">GET registration</a></li>
     <li><a href="#apia-pregistration">POST registration</a></li>
 	<li><a href="#apia-application">GET application</a></li>
-	<li><a href="#apia-papplication">POST application</a></li>
 	<li><a href="#apia-vchecklist">GET verifychecklist</a></li>
     <li><a href="#apia-permits">GET permits</a></li>
     <li><a href="#apia-permit">GET permit</a></li>
+    <li><a href="#apia-papplication">PUT permit</a></li>
 	<li><a href="#apia-pchecklist">POST permit</a></li>
   </ul>
 </li>
@@ -1801,7 +1706,7 @@
   <ul class="nav">
     <li><a href="#apip-inspections">GET inspections</a></li>
     <li><a href="#apip-inspection">GET inspection</a></li>
-    <li><a href="#apip-pinspection">POST inspection</a></li>
+    <li><a href="#apip-pinspection">PUT inspection</a></li>
   </ul>
 </li>
               

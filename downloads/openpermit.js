@@ -1380,7 +1380,8 @@ op.exportSymbol = function (opPath, object) {
 
         if (fields) {
             for (var i = 0; i < fields.length; i++) {
-                expression = expression.replace(fields[i].name, fields[i].value);
+                var regex = new RegExp(fields[i].name, 'gi');
+                expression = expression.replace(regex, ((fields[i].type === 'string' || fields[i].type === 'list') ? '"' + fields[i].value + '"' : fields[i].value));
             }
         }
 
@@ -1396,10 +1397,15 @@ op.exportSymbol = function (opPath, object) {
             var item = list[i];
             if (item.condition) {
                 var result = evaluateFormula(item.condition, fields);
-                // TODO - sanity check that result is boolean
-                if (result) {
-                    item.required = true;
-                    filteredList.push(item);
+                
+                if ($.type(result) === 'boolean') {
+                    if (result) {
+                        item.required = true;
+                        filteredList.push(item);
+                    }
+                }
+                else {
+                    throw new Error('Not a boolean formula');
                 }
             }
             else {
@@ -1411,60 +1417,75 @@ op.exportSymbol = function (opPath, object) {
         return filteredList;
     }
 
-    function filterChecklist(checklist) {
+    function filterChecklist(checklist, fields) {
         var content = {};
-        content.documents = filterList(checklist.documents, checklist.fields);
-        content.disciplines = filterList(checklist.disciplines, checklist.fields);
-        content.permits = filterList(checklist.permits, checklist.fields);
-        content.fees = filterList(checklist.fees, checklist.fields);
+        if (checklist.documents) {
+            content.documents = filterList(checklist.documents, fields);
+        }
+        if (checklist.disciplines) {
+            content.disciplines = filterList(checklist.disciplines, fields);
+        }
+        if (checklist.permits) {
+            content.permits = filterList(checklist.permits, fields);
+        }
+        if (checklist.fees) {
+            content.fees = filterList(checklist.fees, fields);
+        }
         return content;
     }
 
     function evaluateFees(fees, fields) {
         var total = 0;
         for (var i = 0; i < fees.length; i++) {
-            if (fees[i].required) {
-                if (fees[i].value.indexOf('TOTAL') == -1) {
-                    fees[i].value = evalateFormula(fees[i].value, fields);
+            if (fees[i].required && fees[i].formula) {
+                if (fees[i].formula.indexOf('TOTAL') == -1) {
+                    fees[i].value = evaluateFormula(fees[i].formula, fields);
                     total += fees[i].value;
                 }
             }
         }
         var totalField = [{ name: 'TOTAL', value: total }];
         for (var i = 0; i < fees.length; i++) {
-            if (fees[i].required) {
-                if (fees[i].value['constructor'] === String && fees[i].value.indexOf('TOTAL') > -1) {
-                    fees[i].value = evaluateFormula(fees[i].value, totalField);
+            if (fees[i].required && fees[i].formula) {
+                if (fees[i].formula.indexOf('TOTAL') > -1) {
+                    fees[i].value = evaluateFormula(fees[i].formula, totalField);
                     total += fees[i].value;
                 }
             }
         }
-        var totalRow = { name: "Total Fees", value: total };
-        fees.push(totalRow);
+        return total;
     }
 
-    function evaluateChecklist(checklist) {
-        var content = filterChecklist(checklist);
-        evaluateFees(content.fees, checklist.fields);
-        return content;
-    }
-
-    function getFieldValues(fields) {
-        for (var i = 0; i < fields.length; i++) {
-            if (fields[i].datatype === 'boolean') {
-                fields[i].value = $('input[name=' + fields[i].name + ']:checked').val();
-            }
-            else if (fields[i].datatype === 'list') {
-                fields[i].value = $('#' + fields[i].name + ' option:selected').text();
-            }
-            else {
-                fields[i].value = $('#' + fields[i].name).val();
-            }
+    function appendAll(src, dest) {
+        for (var i = 0; i < src.length; i++) {
+            dest.push(src[i]);
         }
     }
 
+    function getFields(pages) {
+        var fields = [];
+        for (var i = 0; i < pages.length; i++) {
+            for (var j = 0; j < pages[i].sections.length; j++) {
+                appendAll(pages[i].sections[j].fields, fields);
+            }
+        }
+
+        return fields;
+    }
+
+    function evaluateChecklist(checklist) {
+        var fields = getFields(checklist.pages);
+        var content = filterChecklist(checklist, fields);
+        var total = evaluateFees(content.fees, fields);
+        content.fees.push({ 'name': 'Total fees: ', 'value': total });
+        content.pages = checklist.pages;
+        return content;
+    }
+
+    
+
     op.exportSymbol('evaluateFormula', evaluateFormula);
     op.exportSymbol('evaluateChecklist', evaluateChecklist);
-    op.exportSymbol('getFieldValues', getFieldValues);
+    
 
 }());

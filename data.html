@@ -11,7 +11,7 @@
 
 <title>
   
-    PRDF &middot; Open Permit
+    Schemas &middot; Open Permit
   
 </title>
 
@@ -58,13 +58,13 @@
           <a href="api.html">API</a>
         </li>
 		<li>
-          <a href="data.html">PRDF</a>
+          <a href="data.html">Schemas</a>
         </li>
         <li>
           <a href="code.html">Develop</a>
         </li>
         <li>
-          <a href="https://groups.google.com/forum/#!forum/open-permit" target="_blank">Discussions</a>
+          <a href="https://github.com/openpermit/openpermit.github.io/issues/" target="_blank">Discussions</a>
         </li>
         <li>
           <a href="https://github.com/openpermit" target="_blank">GitHub</a>
@@ -78,8 +78,8 @@
     <!-- Docs page layout -->
     <div class="bs-docs-header" id="content">
       <div class="container">
-        <h1>PRDF</h1>
-        <p>Permit Requirements Description Format, Open data format to concisely specify permit requirements.</p>
+        <h1>Schemas</h1>
+        <p>Open data schemas to concisely specify permit requirements.</p>
 
       </div>
     </div>
@@ -97,7 +97,7 @@
 
   <h3 id="overview-intro">Introduction</h3>
   <p>
-	  PRDF (short for Permit Requirements Description Format) defines a set of schemas to represent different types of permit related data. Complex
+	  This section defines a set of schemas to represent different types of permit related data. Complex
       relationships and permit process details can be represented using a declarative and structured approach. A format is also defined to represent a
       series of external inputs or fields that capture specific project information. In many of the higher level schemas, these fields are combined with
       rules and formulas to estimate things like specific permit requirements and applicable fees. All this information is represented in a declarative 
@@ -114,11 +114,11 @@
 <!-- Lower level schemas
  -------------------------->
 <div class="bs-docs-section">
-  <h1 id="low" class="page-header">Reusable formats</h1>
+  <h1 id="low" class="page-header">Reusable Schemas</h1>
 
   <h3 id="low-intro">Introduction</h3>
   <p>
-      This section defines a set of schemas, conventions and data formats that are used in building higher level formats for a variety of purposes.
+      This section defines a set of schemas, conventions and data formats that are used in building higher level schemas for a variety of purposes.
   </p>
   <p> <a href="#low-fields">Fields</a> is a declarative schema that can be used to specify miscellaneous required information and the type of that information.
      Fields can be used to gather information from users, to generate user interfaces and to filter requiremens according to <a href="#low-formulas">formulas</a>
@@ -129,7 +129,7 @@
 
   <h3 id="low-fields">Fields</h3>
   <p>
-     Fields are the most versatile constructs defined by PRDF. Think of fields as variables in a programming language or fillable fields in a Adobe PDF
+     Think of fields as variables in a programming language or fillable fields in a Adobe PDF
      document. Fields are included in different higher level formats to represent external information that is needed to be able to accomplish a task,
      filter a set of requirements or simply evaluate a formula.
   </p>  
@@ -137,18 +137,8 @@
 		<h4>Open311</h4>
 		<p>If you are familiar with the <a href="http://www.open311.org">Open311</a> spec, fields serve a similar purpose as the attributes used to define services.</p>
 	</div>
-  <p>
-      Inside the different schemas fields always come in their own <code class="html"><span class="nt">&lt;fields</span><span class="nt">&gt;</span></code>
-      section. 
-  </p>
-  <div class="highlight"><pre><code class="html">   ...
-  <span class="nt">&lt;fields</span><span class="nt">&gt;</span>
-    ...
-  <span class="nt">&lt;/fields&gt;</span>
-  ...
-</code></pre></div>
-    <h4>Field</h4>
-  <p>Fields is an array of <code class="html"><span class="nt">&lt;field</span><span class="nt">&gt;</span></code> objects with the following 
+    <h4>Fields</h4>
+  <p>Fields is an array of <code>{field}</code> objects with the following 
      structure.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -205,43 +195,41 @@
     </table>
   </div><!-- /.table-responsive -->
 
-
-    <div class="highlight"><pre><code class="html"><span class="nt">&lt;fields</span><span class="nt">&gt;</span>
+<h4>Example</h4>
+<div class="highlight"><pre><code class="js"><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;VALUATION&#39;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span><span class="p">,</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Project Valuation&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;OWNERBUILDER&#39;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;boolean&#39;</span><span class="p">,</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Is owner builder?&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;FNAME&#39;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;First Name&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;PROJDESC&#39;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Project Description&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;STYPE&#39;</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Structure Type&#39;</span>
+      <span class="nx">items</span><span class="o">:</span> <span class="p">[</span>
+         <span class="s1">&#39;Residential Single family&#39;</span>,
+         <span class="s1">&#39;Residential Multi-family&#39;</span>,
+         <span class="s1">&#39;Commercial&#39;</span>,
+         <span class="s1">&#39;Mobile Home&#39;</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
     ...
-    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>VALUATION<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;type</span><span class="nt">&gt;</span>numeric<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;label</span><span class="nt">&gt;</span>Project Valuation<span class="nt">&lt;/label&gt;</span>
-    <span class="nt">&lt;/field&gt;</span>
-    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>OWNERBUILDER<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;type</span><span class="nt">&gt;</span>boolean<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;label</span><span class="nt">&gt;</span>Owner Builder<span class="nt">&lt;/label&gt;</span>
-    <span class="nt">&lt;/field&gt;</span>
-    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>FNAME<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;type</span><span class="nt">&gt;</span>string<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;label</span><span class="nt">&gt;</span>First Name<span class="nt">&lt;/label&gt;</span>
-    <span class="nt">&lt;/field&gt;</span>
-    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>PROJDESC<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;type</span><span class="nt">&gt;</span>text<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;label</span><span class="nt">&gt;</span>Project Description<span class="nt">&lt;/label&gt;</span>
-    <span class="nt">&lt;/field&gt;</span>
-    <span class="nt">&lt;field</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>STYPE<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;type</span><span class="nt">&gt;</span>list<span class="nt">&lt;/type&gt;</span>
-      <span class="nt">&lt;label</span><span class="nt">&gt;</span>Structure Type<span class="nt">&lt;/label&gt;</span>
-      <span class="nt">&lt;items</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;item</span><span class="nt">&gt;</span>Residential Single family<span class="nt">&lt;/item&gt;</span>
-        <span class="nt">&lt;item</span><span class="nt">&gt;</span>Residential Multi-family<span class="nt">&lt;/item&gt;</span>
-        <span class="nt">&lt;item</span><span class="nt">&gt;</span>Commercial<span class="nt">&lt;/item&gt;</span>
-        <span class="nt">&lt;item</span><span class="nt">&gt;</span>Mobile Home<span class="nt">&lt;/item&gt;</span>
-      <span class="nt">&lt;/items&gt;</span>
-    <span class="nt">&lt;/field&gt;</span>
-    ...
-<span class="nt">&lt;/fields&gt;</span></code></pre></div>
-
+<span class="p">]</span></code></pre></div>
 
   <h3 id="low-formulas">Formulas</h3>
   <p>
@@ -280,11 +268,12 @@
   <p>
      When <code class="html"><span class="nt">&lt;condition</span><span class="nt">&gt;</span></code> is supported on an item, you simply specify a formula
      that evaluates to a <code>boolean</code> value.</p>
-  <div class="highlight"><pre><code class="html">
-  <span class="nt">&lt;item</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;condition</span><span class="nt">&gt;</span>VALUATION &gt 20000<span class="nt">&lt;/condition&gt;</span>
-  <span class="nt">&lt;/item&gt;</span>
-</code></pre></div>
+<h4>Example</h4>
+  <div class="highlight"><pre><code class="js"><span class="p">{</span>
+    ...
+    <span class="nx">condition</span><span class="o">:</span> <span class="s1">&#39;VALUATION > 20000&#39;</span>
+    ...
+<span class="p">}</span></code></pre></div>
   <div class="bs-callout bs-callout-info">
 		<h4>Required items</h4>
 		<p>
@@ -301,57 +290,19 @@
 ================================================== -->
             
 <div class="bs-docs-section">
-  <h1 id="checklist" class="page-header">Checklist format</h1>
+  <h1 id="checklist" class="page-header">Checklist schema</h1>
 
   <h3 id="checklist-root">Structure</h3>
-  <p>The checklist format can be used to publish specific permit requirement information including documents to be submitted, plan review disciplines that
+  <p>The checklist schema can be used to publish specific permit requirement information including documents to be submitted, plan review disciplines that
      apply if any, applicable subpermits and fees. This format supports the definition of <a>conditions</a> and <a>formulas</a> that are tied to requirements so that the
      requirements can be filtered according to project details. <a>Fields</a> can also be defined that specify miscelaneous required information needed to
-     filter the requiremens according to the <a>contitions</a> and <a>formulas</a>.
+     filter the requiremens according to the <a>contitions</a> and <a>formulas</a>. <a>Field</a> within a checklist can be grouped into pages and sections
+     so that the information can be grouped for presentation purposes.
   </p>
     <p>
-         The root of a checklist should be a checklist object. In JSON format just <code>{...}</code>.
+         The <code>{checklist}</code> is an object with the following fields:
     </p>
-    <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-      ...
-<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
-
-  <p>
-      <code><span class="nt">&lt;name</span><span class="nt">&gt;</span></code> is the only required property on this schema. You can also add a description to give a long explanation of what type of project the
-      checklist applies to.
-  </p>
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;name</span><span class="nt">&gt;</span>New Residential Structure (Single family)<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;desc</span><span class="nt">&gt;</span>Minimum requirements for submittal of new residential single family structure.<span class="nt">&lt;/desc&gt;</span>
-    ...
-<span class="nt">&lt;/checklist&gt;</span>
-</code></pre></div>
-
-  <h3 id="checklist-fields">Fields section</h3>
-  <p>Add a <code class="html"><span class="nt">&lt;fields</span><span class="nt">&gt;</span></code> section to specify which external values apply to
-     this project type.</p>
-  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-    ...
-    <span class="nt">&lt;fields</span><span class="nt">&gt;</span>
-      ...
-    <span class="nt">&lt;/fields&gt;</span>
-    ...
-<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
-    <p>Refer to the <a>Fields</a> format for details on the structure of the fields section.</p>
-
-  <h3 id="checklist-documents">Documents section</h3>
-  <p>Add a <code class="html"><span class="nt">&lt;documents</span><span class="nt">&gt;</span></code> section to specify which documents are required for this permit type.</p>
-  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-    ...
-    <span class="nt">&lt;documents</span><span class="nt">&gt;</span>
-      ...
-    <span class="nt">&lt;/documents&gt;</span>
-    ...
-<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
-  <h4>Document</h4>
-  <p>Documents is an array of <code class="html"><span class="nt">&lt;document</span><span class="nt">&gt;</span></code> objects with the following 
-     structure.</p>
-  <div class="table-responsive">
+    <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
        <tr>
@@ -363,16 +314,31 @@
       <tbody>
        <tr>
          <td>name</td>
+         <td>Name or short description for the checklist.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>desc</td>
+         <td>Longer description for the checklist, with instructions or other help text.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>documents</td>
+         <td>Array of <code>{document}[]</code> objects.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;document.name</td>
          <td>Name or short description for the document.</td>
          <td>Required field. Unique id.</td>
        </tr>
        <tr>
-         <td>desc</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;document.desc</td>
          <td>Longer description for the document, with instructions or other help text.</td>
          <td></td>
        </tr>
        <tr>
-         <td>sign</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;document.sign</td>
          <td>
              <ul>
                  <li><code>true</code> denotes that the document needs to be sealed by design professional</li>
@@ -382,81 +348,32 @@
          <td>Possible values: true, false. Default value: false</td>
        </tr>
        <tr>
-         <td>condition</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;document.condition</td>
          <td>Logic expression that defines when this document is required. Expression must follow the <a>formula</a> syntax.</td>
          <td>Document is <strong>required</strong> if no condition property is specified.</td>
        </tr>
        <tr>
-         <td>code</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;document.code</td>
          <td>Short code to use when renaming the document using the applicable naming conventions.</td>
          <td></td>
        </tr>
-      </tbody>
-    </table>
-  </div><!-- /.table-responsive -->
-
-    <div class="highlight"><pre><code class="html"><span class="nt">&lt;documents</span><span class="nt">&gt;</span>
-    ...
-    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Building Application<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>APP B<span class="nt">&lt;/code&gt;</span>
-    <span class="nt">&lt;/document&gt;</span>
-    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Wind Load Calculations<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>WIND CALCS<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
-    <span class="nt">&lt;/document&gt;</span>
-    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Notice of Commencement<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>NOC<span class="nt">&lt;/code&gt;</span>
-    <span class="nt">&lt;/document&gt;</span>
-    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Truss Drawings<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>TRUSS<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
-    <span class="nt">&lt;/document&gt;</span>
-    <span class="nt">&lt;document</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Owner Builder Disclosure Statement<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>OB<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>OWNERBUILDER = true<span class="nt">&lt;/condition&gt;</span>
-    <span class="nt">&lt;/document&gt;</span>
-    ...
-<span class="nt">&lt;/documents&gt;</span></code></pre></div>
-
-  <h3 id="checklist-disciplines">Disciplines section</h3>
-  <p>Add a <code class="html"><span class="nt">&lt;disciplines</span><span class="nt">&gt;</span></code> section to specify which disciplines are required
-     when doing plan review for this permit type.</p>
-  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-    ...
-    <span class="nt">&lt;disciplines</span><span class="nt">&gt;</span>
-      ...
-    <span class="nt">&lt;/disciplines&gt;</span>
-    ...
-<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
-  <h4>Discipline</h4>
-  <p>Disciplines is an array of <code class="html"><span class="nt">&lt;discipline</span><span class="nt">&gt;</span></code> objects with the following structure.</p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
        <tr>
-         <th style="width: 150px;">Property</th>
-         <th>Description</th>
-         <th>Notes</th>
+         <td>disciplines</td>
+         <td>Array of <code>{discipline}[]</code> objects.</td>
+         <td></td>
        </tr>
-      </thead>
-      <tbody>
        <tr>
-         <td>name</td>
-         <td>Name or short description for the document.</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;discipline.name</td>
+         <td>Name or short description for the discipline.</td>
          <td>Required field. Unique id.</td>
        </tr>
        <tr>
-         <td>desc</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;discipline.desc</td>
          <td>Longer description for the document, with instructions or other help text.</td>
          <td></td>
        </tr>
        <tr>
-         <td>sign</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;discipline.sign</td>
          <td>
              <ul>
                  <li><code>true</code> denotes that the drawing type needs to be sealed by design professional</li>
@@ -466,204 +383,253 @@
          <td>Possible values: true, false. Default value: false</td>
        </tr>
        <tr>
-         <td>stamp_box</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;discipline.stamp_box</td>
          <td>
-             Stamp box object that defines the size and position of the box needed for the jurisdiction to apply their stamp.
+             <code>{Stamp box}</code> object that defines the size and position of the box needed for the jurisdiction to apply their stamp.
          </td>
          <td></td>
        </tr>
        <tr>
-         <td>condition</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stamp_box.size</td>
+         <td>Size of the stamp box in inches separated by an <code>x</code>.</td>
+         <td>Ex. <code>10x5</code></td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stamp_box.position</td>
+         <td>Location in the sheet where the stamp box will be placed. Possible values: <code>top-right</code>, <code>top-left</code>, <code>bottom-right</code>, <code>bottom-left</code>, <code>top-center</code>, <code>bottom-center</code></td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;discipline.condition</td>
          <td>Logic expression that defines when this discipline is required. Expression must follow the <a>formula</a> syntax.</td>
          <td>Discipline is <strong>required</strong> if no condition property is specified.</td>
        </tr>
        <tr>
-         <td>code</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;discipline.code</td>
          <td>Short code to use when renaming the drawing using the applicable naming conventions.</td>
          <td></td>
        </tr>
-      </tbody>
-    </table>
-  </div><!-- /.table-responsive -->
-  <h4>Stamp box</h4>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
        <tr>
-         <th style="width: 150px;">Property</th>
-         <th>Description</th>
-         <th>Notes</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-         <td>size</td>
-         <td>Size of the stamp box in inches. Two numeric value separated by an "x".</td>
-         <td>Ex. <code>10x5</code></td>
+         <td>permits</td>
+         <td>Array of <code>{permittype}[]</code> objects.</td>
+         <td></td>
        </tr>
        <tr>
-         <td>pos</td>
-         <td>Location in the sheet where the stmp box will be placed.</td>
-         <td>Possible values: <code>top-right</code>, <code>top-left</code>, <code>bottom-right</code>, <code>bottom-left</code>,<code>top-center</code>,<code>bottom-center</code>.</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;permittype.id</td>
+         <td>The unique id for the permit type.</td>
+         <td>Required field.</td>
        </tr>
-      </tbody>
-    </table>
-  </div><!-- /.table-responsive -->
-
-    <div class="highlight"><pre><code class="html"><span class="nt">&lt;disciplines</span><span class="nt">&gt;</span>
-    ...
-    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Cover Sheet<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>CS<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
-      <span class="nt">&lt;stamp_box</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;size</span><span class="nt">&gt;</span>10x5<span class="nt">&lt;/size&gt;</span>
-        <span class="nt">&lt;pos</span><span class="nt">&gt;</span>top-right<span class="nt">&lt;/pos&gt;</span>
-      <span class="nt">&lt;/stamp_box&gt;</span>
-    <span class="nt">&lt;/discipline&gt;</span>
-    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Architectural<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>A<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
-    <span class="nt">&lt;/discipline&gt;</span>
-    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Electrical<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>E<span class="nt">&lt;/code&gt;</span>
-    <span class="nt">&lt;/discipline&gt;</span>
-    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Structural<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>S<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;sign</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sign&gt;</span>
-    <span class="nt">&lt;/discipline&gt;</span>
-    <span class="nt">&lt;discipline</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Demolition<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;code</span><span class="nt">&gt;</span>DE<span class="nt">&lt;/code&gt;</span>
-      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>DEMO = true<span class="nt">&lt;/condition&gt;</span>
-    <span class="nt">&lt;/discipline&gt;</span>
-    ...
-<span class="nt">&lt;/disciplines&gt;</span></code></pre></div>
-
-  <h3 id="checklist-permits">Permits section</h3>
-  <p>Add a <code class="html"><span class="nt">&lt;permits</span><span class="nt">&gt;</span></code> section to specify which permits are required for
-     this project type.</p>
-  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-    ...
-    <span class="nt">&lt;permits</span><span class="nt">&gt;</span>
-      ...
-    <span class="nt">&lt;/permits&gt;</span>
-    ...
-<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
-  <h4>Permit</h4>
-  <p>Permits is an array of <code class="html"><span class="nt">&lt;permit</span><span class="nt">&gt;</span></code> objects with the following structure.</p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
        <tr>
-         <th style="width: 150px;">Property</th>
-         <th>Description</th>
-         <th>Notes</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-         <td>name</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;permittype.name</td>
          <td>Name or short description for the permit.</td>
-         <td>Required field. Unique id.</td>
+         <td>Required field.</td>
        </tr>
        <tr>
-         <td>desc</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;permittype.desc</td>
          <td>Longer description for the permit, with instructions or other help text.</td>
          <td></td>
        </tr>
        <tr>
-         <td>condition</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;permittype.condition</td>
          <td>Logic expression that defines when this permit is required. Expression must follow the <a>formula</a> syntax.</td>
          <td>Permit is <strong>required</strong> if no condition property is specified.</td>
        </tr>
-      </tbody>
-    </table>
-  </div><!-- /.table-responsive -->
-
-    <div class="highlight"><pre><code class="html"><span class="nt">&lt;permits</span><span class="nt">&gt;</span>
-    ...
-    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Building Permit<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/permit&gt;</span>
-    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Electrical Permit<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/permit&gt;</span>
-    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Mechanical Permit<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/permit&gt;</span>
-    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Plumbing Permit<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/permit&gt;</span>
-    <span class="nt">&lt;permit</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Demolition Permit<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>DEMO = true<span class="nt">&lt;/condition&gt;</span>
-    <span class="nt">&lt;/permit&gt;</span>
-    ...
-<span class="nt">&lt;/permits&gt;</span></code></pre></div>
-
-  <h3 id="checklist-fees">Fees section</h3>
-  <p>Add a <code class="html"><span class="nt">&lt;fees</span><span class="nt">&gt;</span></code> section to specify which fees apply to
-     this project type.</p>
-  <div class="highlight"><pre><code class="html"><span class="nt">&lt;checklist</span><span class="nt">&gt;</span>
-    ...
-    <span class="nt">&lt;fees</span><span class="nt">&gt;</span>
-      ...
-    <span class="nt">&lt;/fees&gt;</span>
-    ...
-<span class="nt">&lt;/checklist&gt;</span></code></pre></div>
-  <h4>Fee</h4>
-  <p>Fees is an array of <code class="html"><span class="nt">&lt;fee</span><span class="nt">&gt;</span></code> objects with the following structure.</p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
        <tr>
-         <th style="width: 150px;">Property</th>
-         <th>Description</th>
-         <th>Notes</th>
+         <td>fees</td>
+         <td>Array of <code>{fee}[]</code> objects.</td>
+         <td></td>
        </tr>
-      </thead>
-      <tbody>
        <tr>
-         <td>name</td>
-         <td>Name or short description for the fee.</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;fee.id</td>
+         <td>Unique id or code for this fee.</td>
          <td>Required field. Unique id.</td>
        </tr>
        <tr>
-         <td>desc</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;fee.name</td>
+         <td>Name or short description for the fee.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;fee.desc</td>
          <td>Longer description for the fee, with instructions or explanation of the nature of the fee.</td>
          <td></td>
        </tr>
        <tr>
-         <td>value</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;fee.formula</td>
          <td>The numeric fee amount or a text in the <a>formula</a> format with the formula to be used to calculate the fee.</td>
          <td>Ex. <code>((VALUATION - 1000) / 1000) * 5</code></td>
        </tr>
        <tr>
-         <td>condition</td>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;fee.condition</td>
          <td>Logic expression that defines when this fee is required. Expression must follow the <a>formula</a> syntax.</td>
          <td>Fee is assumed to <strong>apply</strong> if no condition property is specified.</td>
+       </tr>
+       <tr>
+         <td>pages</td>
+         <td>Array of <code>{page}[]</code> objects. Pages contain fields which specify which information is needed to dynamically filter the checklist.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;page.label</td>
+         <td>Short description for this page.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;page.sections</td>
+         <td>Array of <code>{section}[]</code> objects. Sections to visually subdivide this page into.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;section.label</td>
+         <td>Short description for this section.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;section.fields</td>
+         <td>Refer to the <a>Fields</a> schema for details on the structure of the fields.</td>
+         <td>Required field.</td>
        </tr>
       </tbody>
     </table>
   </div><!-- /.table-responsive -->
 
-    <div class="highlight"><pre><code class="html"><span class="nt">&lt;fees</span><span class="nt">&gt;</span>
+    <h4>Example</h4>
+<div class="highlight"><pre><code class="js"><span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;New Residential Structure (Single family)&#39;</span><span class="p">,</span>
+    <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Minimum requirements for a new single family project.&#39;</span><span class="p">,</span>
+    <span class="nx">documents</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Wind Load Calculations&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;WIND CALCS&#39;</span><span class="p">,</span>
+        <span class="nx">sign</span><span class="o">:</span> <span class="nt">true</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Notice of Commencement&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;NOC&#39;</span>
+      <span class="p">},</span> 
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Truss Drawings&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;TRUSS&#39;</span><span class="p">,</span>
+        <span class="nx">sign</span><span class="o">:</span> <span class="nt">true</span>
+      <span class="p">},</span> 
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Owner Builder Disclousure Statement&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;TRUSS&#39;</span><span class="p">,</span>
+        <span class="nx">condition</span><span class="o">:</span> <span class="s1">&#39;OWNERBUILDER = true&#39;</span>
+      <span class="p">},</span> 
+    <span class="p">],</span>
+
     ...
-    <span class="nt">&lt;fee</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Sample Flat Fee<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;value</span><span class="nt">&gt;</span>50<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/fee&gt;</span>
-    <span class="nt">&lt;fee</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name</span><span class="nt">&gt;</span>Sample Formula With Condition Fee<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;value</span><span class="nt">&gt;</span>((VALUATION - 1000) / 1000) * 5<span class="nt">&lt;/value&gt;</span>
-      <span class="nt">&lt;condition</span><span class="nt">&gt;</span>VALUATION &gt; 1000<span class="nt">&lt;/condition&gt;</span>
-    <span class="nt">&lt;/fee&gt;</span>
+
+    <span class="nx">disciplines</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Cover Sheet&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;CS&#39;</span><span class="p">,</span>
+        <span class="nx">sign</span><span class="o">:</span> <span class="nt">true</span><span class="p">,</span>
+        <span class="nx">stamp_box</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">size</span><span class="o">:</span> <span class="s1">&#39;10x5&#39;</span><span class="p">,</span>
+          <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;top-right&#39;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Architectural&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span>
+        <span class="nx">sign</span><span class="o">:</span> <span class="nt">true</span>
+      <span class="p">},</span> 
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Structural&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span>
+        <span class="nx">sign</span><span class="o">:</span> <span class="nt">true</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Electrical&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span>
+        <span class="nx">sign</span><span class="o">:</span> <span class="nt">true</span>
+      <span class="p">},</span>  
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Demolition&#39;</span><span class="p">,</span>
+        <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;DE&#39;</span><span class="p">,</span>
+        <span class="nx">sign</span><span class="o">:</span> <span class="nt">true</span><span class="p">,</span>
+        <span class="nx">condition</span><span class="o">:</span> <span class="s1">&#39;DEMO = true&#39;</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+
     ...
-<span class="nt">&lt;/fees&gt;</span></code></pre></div>
+
+    <span class="nx">permits</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Residential Electrical&#39;</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;0001-Building-Residential-electrical-NA&#39;</span><span class="p">,</span>
+        <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Permit for residential electrical work.&#39;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Residential Structural&#39;</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;0001-Building-Residential-Structural-NA&#39;</span><span class="p">,</span>
+        <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Permit for residential structural work.&#39;</span>
+      <span class="p">},</span> 
+      <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Residential Demolition&#39;</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;0001-Buildinhg-Residential-Demolition-NA&#39;</span><span class="p">,</span>
+        <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Permit for residential demolition work.&#39;</span><span class="p">,</span>
+        <span class="nx">condition</span><span class="o">:</span> <span class="s1">&#39;DEMO = true&#39;</span>
+      <span class="p">},</span>  
+    <span class="p">],</span>
+
+    ...
+
+    <span class="nx">fees</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;BLD_01&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Application Fee&#39;</span><span class="p">,</span>
+        <span class="nx">formula</span><span class="o">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;BLD_02&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Permit Fee (Valuation)&#39;</span><span class="p">,</span>
+        <span class="nx">formula</span><span class="o">:</span> <span class="s1">&#39;(VALUATION - 1000) / 1000 * 25&#39;</span><span class="p">,</span>
+      <span class="p">},</span> 
+      <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;BLD_03&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Demolition Fee&#39;</span><span class="p">,</span>
+        <span class="nx">formula</span><span class="o">:</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
+        <span class="nx">condition</span><span class="o">:</span> <span class="s1">&#39;DEMO = true&#39;</span>
+      <span class="p">},</span>  
+    <span class="p">],</span>
+
+    ...
+
+    <span class="nx">pages</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Project Info&#39;</span><span class="p">,</span>
+        <span class="nx">sections</span><span class="o">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Details&#39;</span><span class="p">,</span>
+            <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;VALUATION&#39;</span><span class="p">,</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span><span class="p">,</span>
+                <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Project Valuation&#39;</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;OWNERBUILDER&#39;</span><span class="p">,</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;boolean&#39;</span><span class="p">,</span>
+                <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Is owner builder?&#39;</span>
+              <span class="p">},</span> 
+              <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;DEMO&#39;</span><span class="p">,</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;boolean&#39;</span><span class="p">,</span>
+                <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Demolition needed?&#39;</span>
+              <span class="p">},</span>   
+            <span class="p">]</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+    
+
+  
+  
 </div>
 
         </div>
@@ -678,7 +644,7 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="#low">Reusable formats</a>
+                  <a href="#low">Reusable schemas</a>
                   <ul class="nav">
                     <li><a href="#low-intro">Introduction</a></li>
                     <li><a href="#low-fields">Fields</a></li>
@@ -687,18 +653,11 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="#checklist">Checklist format</a>
+                  <a href="#checklist">Checklist schema</a>
                   <ul class="nav">
                     <li><a href="#checklist-root">Structure</a></li>
-                    <li><a href="#checklist-fields">Documents section</a></li>
-                    <li><a href="#checklist-documents">Documents section</a></li>
-                    <li><a href="#checklist-disciplines">Disciplines section</a></li>
-                    <li><a href="#checklist-permits">Permits section</a></li>
-                    <li><a href="#checklist-fees">Fees section</a></li>
                   </ul>
                 </li>
-
-              
             </ul>
             <a class="back-to-top" href="#top">
               Back to top
