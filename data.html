@@ -632,6 +632,107 @@
   
 </div>
 
+<!-- 
+    Application
+================================================== -->
+            
+<div class="bs-docs-section">
+  <h1 id="application" class="page-header">Application schema</h1>
+
+  <h3 id="application-root">Structure</h3>
+  <p>The application schema can be used to define the permit application information to be collected for a permit type. A permit application 
+     is composed of <a>fields</a> that are grouped into pages and sections for presentation purposes. 
+  </p>
+    <p>
+         The <code>{application}</code> is an object with the following fields:
+    </p>
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>name</td>
+         <td>Name or short description for the application.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>desc</td>
+         <td>Longer description for the application, with instructions or other help text.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>pages</td>
+         <td>Array of <code>{page}[]</code> objects. Pages contain fields which specify which information needs to be collected to complete the permit application.</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;page.label</td>
+         <td>Short description for this page.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;page.sections</td>
+         <td>Array of <code>{section}[]</code> objects. Sections to visually subdivide this page into.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;section.label</td>
+         <td>Short description for this section.</td>
+         <td>Required field.</td>
+       </tr>
+       <tr>
+         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;section.fields</td>
+         <td>Refer to the <a>Fields</a> schema for details on the structure of the fields.</td>
+         <td>Required field.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+
+    <h4>Example</h4>
+<div class="highlight"><pre><code class="js"><span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;New Residential Structure (Single family) Application&#39;</span><span class="p">,</span>
+    <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;Permit application for new single family projects.&#39;</span><span class="p">,</span>
+    <span class="nx">pages</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Project Info&#39;</span><span class="p">,</span>
+        <span class="nx">sections</span><span class="o">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Details&#39;</span><span class="p">,</span>
+            <span class="nx">fields</span><span class="o">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;VALUATION&#39;</span><span class="p">,</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span><span class="p">,</span>
+                <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Project Valuation&#39;</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;OWNERBUILDER&#39;</span><span class="p">,</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;boolean&#39;</span><span class="p">,</span>
+                <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Is owner builder?&#39;</span>
+              <span class="p">},</span> 
+              <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;DEMO&#39;</span><span class="p">,</span>
+                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;boolean&#39;</span><span class="p">,</span>
+                <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Demolition needed?&#39;</span>
+              <span class="p">},</span>   
+            <span class="p">]</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+    
+
+  
+  
+</div>
+
         </div>
         <div class="col-md-3">
           <div class="bs-docs-sidebar hidden-print" role="complementary">
@@ -656,6 +757,12 @@
                   <a href="#checklist">Checklist schema</a>
                   <ul class="nav">
                     <li><a href="#checklist-root">Structure</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#application">Application schema</a>
+                  <ul class="nav">
+                    <li><a href="#application-root">Structure</a></li>
                   </ul>
                 </li>
             </ul>
