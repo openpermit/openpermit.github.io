@@ -152,14 +152,7 @@
 ================================================== -->
 <div class="bs-docs-section">
   <h1 id="defs" class="page-header">Definitions</h1>
-
-  <h3 id="defs_id">agency</h3>
-  <p>
-	   As a means to allow this API to distinguish multiple jurisdictions within one API endpoint we've included an "agency" which will be the unique
-	   identifier for permitting issuing jurisdictions. We suggest that implementations use the jurisdiction's Census FIPS Code as defined by the US Census Permits 
-	   Survey.
-	</p>
-	<h3 id="defs-opt">Optional Arguments</h3>
+  	<h3 id="defs-opt">Optional Arguments</h3>
 	<p>
 		"Optional" means that the response should be the same whether a parameter is passed and is empty or is not passed at all. A null parameter should be treated as equivalent to a non-declared parameter in processing the request.
 	</p>
@@ -200,7 +193,7 @@
 
   <!-- APIs -->
   <h3 id="apir-permit-types">GET permit types</h3>
-  <p>Retrieves the lists of all permit / project types for a jurisdiction.</p>
+  <p>Retrieves the lists of all permit / project types for the jurisdiction.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
@@ -216,7 +209,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits/types?agency=0001</td>
+         <td>http://epermithub.com/permits/types</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -241,9 +234,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
+         <td colspan="3"><h3>NO Arguments required</h3></td>
        </tr>
       </tbody>
     </table>
@@ -313,8 +304,6 @@
 
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apir-checklist">GET permit type checklist</h3>
@@ -335,7 +324,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits/types/0001-Building-Commercial-Addition-NA/checklist?agency=0001</td>
+         <td>http://epermithub.com/permits/types/0001-Building-Commercial-Addition-NA/checklist</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -364,11 +353,6 @@
          <td>Permit type id for the checklist to be retrieved.</td>
          <td>Required</td>
        </tr>
-       <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
-       </tr>
       </tbody>
     </table>
   </div><!-- /.table-responsive -->
@@ -383,7 +367,7 @@
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apir-standards">GET standards</h3>
-  <p>Retrieves the plan submittal standards for a jurisdiction.</p>
+  <p>Retrieves the plan submittal standards for the jurisdiction.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
@@ -399,7 +383,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits/standards?agency=0001</td>
+         <td>http://epermithub.com/permits/standards</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -424,9 +408,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
+         <td colspan="3"><h3>No Arguments required</h3></td>
        </tr>
       </tbody>
     </table>
@@ -449,7 +431,7 @@
     </table>
   </div>
   <h3 id="apir-forms">GET forms</h3>
-  <p>Retrieves the list forms for a jurisdiction.</p>
+  <p>Retrieves the list forms for the jurisdiction.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
@@ -465,7 +447,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits/forms?agency=0001</td>
+         <td>http://epermithub.com/permits/forms</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -490,9 +472,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
+         <td colspan="3"><h3>No Arguments required</h3></td>
        </tr>
       </tbody>
     </table>
@@ -556,8 +536,6 @@
 
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
 </div>
@@ -585,7 +563,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits?agency=0001&filter=tbd</td>
+         <td>http://epermithub.com/permits?filter=tbd</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -614,11 +592,6 @@
          <td>Filter to use to retrieve permits.</td>
          <td></td>
        </tr>
-       <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
-       </tr>
       </tbody>
     </table>
   </div><!-- /.table-responsive -->
@@ -641,8 +614,6 @@
   </div>
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction_id provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction_id was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apip-permit">GET permit</h3>
@@ -662,7 +633,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/permits/BLD-34354-001?agency=0001</td>
+         <td>http://epermithub.org/permits/BLD-34354-001</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -686,11 +657,6 @@
        </tr>
       </thead>
       <tbody>
-       <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
-       </tr>
        <tr>
          <td>permitno</td>
          <td>Permit number for which to retrieve detailed information.</td>
@@ -718,12 +684,12 @@
   </div>
     <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction_id or permit_no provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction_id or permit_no was not provided (specify in error response)</li>
+        <li>404 - permit_no provided was not found (specify in error response)</li>
+        <li>400 - permit_no was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apip-timeline">GET permit timeline</h3>
-  <p>Retrieves a specific permit record details.</p>
+  <p>Retrieves the history of a specific permit record.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
@@ -739,7 +705,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/permits/BLD-34354-001/timeline?jurisdiction=0001</td>
+         <td>http://epermithub.org/permit/BLD-34354-001/timeline</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -763,11 +729,6 @@
        </tr>
       </thead>
       <tbody>
-       <tr>
-         <td>jurisdiction</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
-       </tr>
        <tr>
          <td>permitno</td>
          <td>Permit number for which to retrieve detailed information.</td>
@@ -795,8 +756,224 @@
   </div>
     <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction_id or permit_no provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction_id or permit_no was not provided (specify in error response)</li>
+        <li>404 - permit_no provided was not found (specify in error response)</li>
+        <li>400 - permit_no was not provided (specify in error response)</li>
+        <li>500 - General service error (Unknown error. The client will need to notify us)</li>
+    </ul>
+  <h3 id="apip-documents">GET permit Documents</h3>
+  <p>Retrieves a document list attached to a specific permit record.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>URL</td>
+         <td>http://[API endpoint]/permit/{permitno}/documents</td>
+       </tr>
+       <tr>
+         <td>Sample URL</td>
+         <td>http://epermithub.org/permit/BLD-34354-001/documents</td>
+       </tr>
+       <tr>
+         <td>HTTP Method</td>
+         <td>GET</td>
+       </tr>
+       <tr>
+         <td>Requires API Key</td>
+         <td>No</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+    <h4>Arguments</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Name</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>permitno</td>
+         <td>Permit number for which to retrieve document list.</td>
+         <td>Required.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+    <h4>Response</h4>
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Name</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td colspan="3"><h1>TBD</h1></td>
+       </tr>
+      </tbody>
+    </table>
+  </div>
+    <h4>Possible errors</h4>
+    <ul>
+        <li>404 - permit_no provided was not found (specify in error response)</li>
+        <li>400 - permit_no was not provided (specify in error response)</li>
+        <li>500 - General service error (Unknown error. The client will need to notify us)</li>
+    </ul>
+  <h3 id="apip-issues">GET permit Issues</h3>
+  <p>Retrieves a list of issues with a specific permit record. Each issue will be linked to a specific Inspection</p>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>URL</td>
+         <td>http://[API endpoint]/permit/{permitno}/issues</td>
+       </tr>
+       <tr>
+         <td>Sample URL</td>
+         <td>http://epermithub.org/permit/BLD-34354-001/issues</td>
+       </tr>
+       <tr>
+         <td>HTTP Method</td>
+         <td>GET</td>
+       </tr>
+       <tr>
+         <td>Requires API Key</td>
+         <td>No</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+    <h4>Arguments</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Name</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>permitno</td>
+         <td>Permit number for which to retrieve document list.</td>
+         <td>Required.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+    <h4>Response</h4>
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Name</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td colspan="3"><h1>TBD</h1></td>
+       </tr>
+      </tbody>
+    </table>
+  </div>
+    <h4>Possible errors</h4>
+    <ul>
+        <li>404 - permit_no provided was not found (specify in error response)</li>
+        <li>400 - permit_no was not provided (specify in error response)</li>
+        <li>500 - General service error (Unknown error. The client will need to notify us)</li>
+    </ul>
+  <h3 id="apip-related">GET related permits</h3>
+  <p>Retrieves a list of permits related to a specific permit record.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Property</th>
+         <th>Description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>URL</td>
+         <td>http://[API endpoint]/permit/{permitno}/permits</td>
+       </tr>
+       <tr>
+         <td>Sample URL</td>
+         <td>http://epermithub.org/permit/BLD-34354-001/permits</td>
+       </tr>
+       <tr>
+         <td>HTTP Method</td>
+         <td>GET</td>
+       </tr>
+       <tr>
+         <td>Requires API Key</td>
+         <td>No</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+    <h4>Arguments</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Name</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>permitno</td>
+         <td>Permit number for which to retrieve document list.</td>
+         <td>Required.</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- /.table-responsive -->
+    <h4>Response</h4>
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 150px;">Name</th>
+         <th>Description</th>
+         <th>Notes</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td colspan="3"><h1>TBD</h1></td>
+       </tr>
+      </tbody>
+    </table>
+  </div>
+    <h4>Possible errors</h4>
+    <ul>
+        <li>404 - permit_no provided was not found (specify in error response)</li>
+        <li>400 - permit_no was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apip-inspections">GET inspections</h3>
@@ -816,7 +993,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits/BLD-34354-001/inspections?agency=0001</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/inspections</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -840,11 +1017,6 @@
        </tr>
       </thead>
       <tbody>
-       <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
-       </tr>
        <tr>
          <td>permitno</td>
          <td>Permit number for which to retrive the list of inspections.</td>
@@ -872,8 +1044,8 @@
   </div>
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction_id or permit_no provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction_id or permit_no was not provided (specify in error response)</li>
+        <li>404 - permit_no provided was not found (specify in error response)</li>
+        <li>400 - permit_no was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apip-inspection">GET inspection</h3>
@@ -893,7 +1065,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits/BLD-34354-001/inspections/INSP-12?agency=0001</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/inspections/INSP-12</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -917,11 +1089,6 @@
        </tr>
       </thead>
       <tbody>
-       <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
-       </tr>
        <tr>
          <td>permitno</td>
          <td>Permit number for which to retrive inspection details.</td>
@@ -975,7 +1142,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits/BLD-34354-001/inspections?agency=0001</td>
+         <td>http://epermithub.com/permits/BLD-34354-001/inspections</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1003,11 +1170,6 @@
          <td>permitno</td>
          <td>Permit number for which to schedule the inspection.</td>
          <td>Required.</td>
-       </tr>
-       <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
        </tr>
        <tr>
          <td colspan="3"><h1>TBD</h1></td>
@@ -1047,7 +1209,7 @@
 
   <!-- APIs -->
   <h3 id="apia-registration">GET registration</h3>
-  <p>Retrieves the set of information that needs to be collected to register or "create and account" for a construction professional or citizen with a 
+  <p>Retrieves the set of information that needs to be collected to register or "create and account" for a construction professional or citizen with the 
      jurisdiction.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -1064,7 +1226,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/registration?agency=0001</td>
+         <td>http://epermithub.com/registration</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1089,9 +1251,7 @@
       </thead>
       <tbody>
        <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
+        <td colspan="3"><h3>No Arguments required</h3></td>
        </tr>
       </tbody>
     </table>
@@ -1119,12 +1279,10 @@
   </div>
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apia-pregistration">POST registration</h3>
-  <p>Registers or "creates and account" for a construction professional or citizen with a jurisdiction.</p>
+  <p>Registers or "creates and account" for a construction professional or citizen with the jurisdiction.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
@@ -1140,7 +1298,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/registration?agency=0001</td>
+         <td>http://epermithub.com/registration</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1169,11 +1327,6 @@
          <td>List of fields in <a href="data.html#low-fields">Fields schema</a> format.</td>
          <td>Required.</td>
        </tr>
-       <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
-       </tr>
       </tbody>
     </table>
   </div><!-- /.table-responsive -->
@@ -1196,8 +1349,6 @@
   </div>
   <h4>Possible errors</h4>
     <ul>
-        <li>404 - jurisdiction provided was not found (specify in error response)</li>
-        <li>400 - jurisdiction was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
   <h3 id="apia-application">GET application</h3>
@@ -1218,7 +1369,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/permits/types/0001-Building-Commercial-Addition-NA/application?agency=0001</td>
+         <td>http://epermithub.org/permits/types/0001-Building-Commercial-Addition-NA/application</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -1242,11 +1393,6 @@
        </tr>
       </thead>
       <tbody>
-       <tr>
-         <td>agency</td>
-         <td>Id of jusrisdiction as defined by the service endpoint.</td>
-         <td>This is only required if the endpoint serves multiple jurisdictions</td>
-       </tr>
        <tr>
          <td>id</td>
          <td>Permit type id for application to be retrieved.</td>
@@ -1359,7 +1505,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.org/permits/BLD14-00184?agency=0001</td>
+         <td>http://epermithub.org/permits/BLD14-00184</td>
        </tr>
        <tr>
          <td>Formats</td>
@@ -1685,7 +1831,6 @@
 <li>
   <a href="#defs">Definitions</a>
   <ul class="nav">
-    <li><a href="#defs-id">jurisdiction_id</a></li>
     <li><a href="#defs-opt">Optional Arguments</a></li>
   </ul>
 </li>
