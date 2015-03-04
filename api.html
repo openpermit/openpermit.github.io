@@ -563,7 +563,7 @@
        </tr>
        <tr>
          <td>Sample URL</td>
-         <td>http://epermithub.com/permits?filter=tbd</td>
+         <td>http://epermithub.com/permit?license=fl345654</td>
        </tr>
        <tr>
          <td>HTTP Method</td>
@@ -576,7 +576,7 @@
       </tbody>
     </table>
   </div><!-- /.table-responsive -->
-  <h4>Arguments</h4>
+   <h4>Arguments</h4>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -588,30 +588,109 @@
       </thead>
       <tbody>
        <tr>
-         <td>filter</td>
-         <td>Filter to use to retrieve permits.</td>
-         <td></td>
+         <td>address</td>
+         <td>Address where permit is required.</td>
+         <td>Optional Query Param.</td>
+       </tr>
+       <tr>
+         <td>license</td>
+         <td>License number of the GC applying for permit.</td>
+         <td>Optional Query Param.</td>
        </tr>
       </tbody>
     </table>
   </div><!-- /.table-responsive -->
   <h4>Response</h4>
+  <p>
+     An array of <code>{permit}</code> objects with the following 
+     structure.
+  </p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
        <tr>
-         <th style="width: 150px;">Name</th>
+         <th style="width: 150px;">Property</th>
          <th>Description</th>
          <th>Notes</th>
        </tr>
       </thead>
       <tbody>
        <tr>
-         <td colspan="3"><h1>TBD</h1></td>
+         <td>number</td>
+         <td>Service endpoint assigned identifier for the permit.</td>
+         <td>Required</td>
+       </tr>
+       <tr>
+         <td>type</td>
+         <td>A <code>{permit type}</code>, see Permit Type structure below.</td>
+         <td>Required.</td>
+       </tr>
+       <tr>
+         <td>state</td>
+         <td>state of the permit: (application, review, inspection).</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>status</td>
+         <td>The status of the permit given the state: (progress, done, issues).</td>
+         <td></td>
+       </tr>
+       <tr>
+         <td>address</td>
+         <td>The address where the permit is needed.</td>
+         <td></td>
        </tr>
       </tbody>
     </table>
-  </div>
+  </div><!-- /.table-responsive -->
+  <h4>Example</h4>
+    <div class="highlight"><pre><code class="js"><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">number</span><span class="o">:</span> <span class="s1">&#39;BLD13-00184&#39;</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;0001-Building-Commercial-Alteration-NA&#39;</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Commercial Alteration&#39;</span>
+        <span class="nx">agencyId</span><span class="o">:</span> <span class="s1">&#39;0001&#39;</span>
+      <span class="p">},</span>
+      <span class="nx">state</span><span class="o">:</span> <span class="s1">&#39;Application&#39;</span>
+      <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;In Progress&#39;</span>
+      <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;9483 MAIN ST UNINCORPORATED PENNGROVE CA 94952&#39;</span>
+    <span class="p">},</span>
+     <span class="p">{</span>
+      <span class="nx">number</span><span class="o">:</span> <span class="s1">&#39;BLD13-00185&#39;</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;0001-Building-Commercial-Demolition-NA&#39;</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Commercial Demolition&#39;</span>
+        <span class="nx">agencyId</span><span class="o">:</span> <span class="s1">&#39;0001&#39;</span>
+      <span class="p">},</span>
+      <span class="nx">state</span><span class="o">:</span> <span class="s1">&#39;Application&#39;</span>
+      <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;In Progress&#39;</span>
+      <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;9483 MAIN ST UNINCORPORATED PENNGROVE CA 94952&#39;</span>
+    <span class="p">},</span>
+     <span class="p">{</span>
+      <span class="nx">number</span><span class="o">:</span> <span class="s1">&#39;BLD13-00186&#39;</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;0001-Building-Commercial-Electrical-NA&#39;</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Commercial Electrical&#39;</span>
+        <span class="nx">agencyId</span><span class="o">:</span> <span class="s1">&#39;0001&#39;</span>
+      <span class="p">},</span>
+      <span class="nx">state</span><span class="o">:</span> <span class="s1">&#39;Application&#39;</span>
+      <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;Done&#39;</span>
+      <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;9483 MAIN ST UNINCORPORATED PENNGROVE CA 94952&#39;</span>
+    <span class="p">},</span>
+     <span class="p">{</span>
+      <span class="nx">number</span><span class="o">:</span> <span class="s1">&#39;BLD13-00187&#39;</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;0001-Building-Comercial-Gas-NA&#39;</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Commercial Gas&#39;</span>
+        <span class="nx">agencyId</span><span class="o">:</span> <span class="s1">&#39;0001&#39;</span>
+      <span class="p">},</span>
+      <span class="nx">state</span><span class="o">:</span> <span class="s1">&#39;Review&#39;</span>
+      <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;In Progress&#39;</span>
+      <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;9483 MAIN ST UNINCORPORATED PENNGROVE CA 94952&#39;</span>
+    <span class="p">},</span>
+    ...
+<span class="p">]</span></code></pre></div>
   <h4>Possible errors</h4>
     <ul>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
@@ -629,7 +708,7 @@
       <tbody>
        <tr>
          <td>URL</td>
-         <td>http://[API endpoint]/permit/{permitno}</td>
+         <td>http://[API endpoint]/permits/{permitno}</td>
        </tr>
        <tr>
          <td>Sample URL</td>
