@@ -419,7 +419,7 @@
         <li>400 - permit_no was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
-    <h3 id="apip-papplication">PUT permit</h3>
+    <h3 id="apip-papplication">POST permit</h3>
     <p>
         Submits the information needed to open a permit application for a particular type of permit.
     </p>
@@ -442,7 +442,7 @@
                 </tr>
                 <tr>
                     <td>HTTP Method</td>
-                    <td>PUT</td>
+                    <td>POST</td>
                 </tr>
                 <tr>
                     <td>Requires API Key</td>
@@ -495,7 +495,7 @@
         <li>400 - permit_no was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
-    <h3 id="apip-pchecklist">POST permit</h3>
+    <h3 id="apip-pchecklist">PUT permit</h3>
     <p>Updates permit record.</p>
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -520,7 +520,7 @@
                 </tr>
                 <tr>
                     <td>HTTP Method</td>
-                    <td>POST</td>
+                    <td>PUT</td>
                 </tr>
                 <tr>
                     <td>Requires API Key</td>
@@ -870,7 +870,7 @@
         <li>400 - Required parameter was not provided (specify in error response)</li>
         <li>500 - General service error (Unknown error. The client will need to notify us)</li>
     </ul>
-  <h3 id="apip-pinspection">PUT inspection</h3>
+  <h3 id="apip-pinspection">POST inspection</h3>
   <p>Schedules new inspection.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -891,7 +891,7 @@
        </tr>
        <tr>
          <td>HTTP Method</td>
-         <td>PUT</td>
+         <td>POST</td>
        </tr>
        <tr>
          <td>Requires API Key</td>
@@ -1729,13 +1729,13 @@
   <ul class="nav">
     <li><a href="#apip-permits">GET permits</a></li>
     <li><a href="#apip-permit">GET permit</a></li>
-    <li><a href="#apip-papplication">PUT permit</a></li>
-    <li><a href="#apip-pchecklist">POST permit</a></li>
+    <li><a href="#apip-papplication">POST permit</a></li>
+    <li><a href="#apip-pchecklist">PUT permit</a></li>
     <li><a href="#apip-timeline">GET permit history</a></li>
     <li><a href="#apip-documents">GET permit documents</a></li>
     <li><a href="#apip-inspections">GET permit inspections</a></li>    
     <li><a href="#apip-inspection">GET inspection</a></li>
-    <li><a href="#apip-pinspection">PUT inspection</a></li>
+    <li><a href="#apip-pinspection">POST inspection</a></li>
     <li><a href="#apip-issues">GET inspection issues</a></li>
   </ul>
 </li>
