@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -79,7 +79,7 @@
     <div class="bs-docs-header" id="content">
       <div class="container">
         <h1>Developer Resources</h1>
-        <p>Open source libraries, discussions, news and more about the Open Permit APIs and PRDF.</p>
+        <p>Open source libraries, discussions, news and more about the Open Permit APIs and data formats.</p>
 
       </div>
     </div>
@@ -107,7 +107,7 @@
 
   <h3 id="overview-code">Code Repositories</h3>
   <p>
-      The API specs and PRDF documentation as well as code libraries and other source code will be distributed via the <a href="https://github.com/openpermit" target="_blank">Open Permit account on Github</a>.
+      The API specs and other documentation as well as code libraries and other source code will be distributed via the <a href="https://github.com/openpermit" target="_blank">Open Permit account on Github</a>.
       Reference to other third party code and other resources will be referenced from this page.
   </p>
   
@@ -115,7 +115,7 @@
   <h3 id="overview-issues">Issue Tracking</h3>
   <p>
       The Open Permit <a href="https://github.com/openpermit/openpermit.github.io/issues">issue tracker</a>
-      is primarily used to track the development of the Open Permit APIs and PRDF specs. This is <strong>not</strong> the place to report issues with the code libraries
+      is primarily used to track the development of the Open Permit specs. This is <strong>not</strong> the place to report issues with the code libraries
       or specific implementations of Open Permit. If you find a problem with a specific implementation, please help notify the owner of the endpoint or
       let us know at <a href="mailto:support@epermithub.org">support@epermithub.org</a> and we will make sure to bring it up to the right organization.
   </p> 
@@ -125,31 +125,54 @@
 <!-- Overview
 ================================================== -->
 <div class="bs-docs-section">
-  <h1 id="opjs" class="page-header">openpermit.js</h1>
+  <h1 id="impl" class="page-header">Reference Implementations</h1>
 
 
   <h3 id="opjs-intro">Introduction</h3>
   <p>
-      <strong>openpermit.js</strong> is a Javascript and Node.js library that provides wrappers around the Open Permit API and PRDF JSON support. 
-      The library allows you to filter permit requirement checklists, calculate fees and wraps API calls to make them easy to invoke. It also
-      provides utility functions for common operations such as retrieving values from UI, etc.
+      Below you can find a set of reference implementations to get you up and running quickly with OpenPermit on the server side. 
   </p>
 
 
   <h3 id="opjs-releases">Releases</h3>
   <p>
-      Currently <strong>openpermit.js</strong> is at v0.3.0. The library is under heavy research and development and the API is very unstable. We encourage you to 
-      <a href="downloads/openpermit.js">download</a> and play with it, but do not expect the API to remain consistent.
+      ASP .NET Web API based implementation coming soon...  
   </p>
   <p>
-      Even better if you would like to contribute or have any feedback, head over to <a href="https://github.com/openpermit/openpermit.js">the GitHub repo</a> or get 
+      Even better if you would like to contribute a reference implementation or have any feedback, head over to <a href="https://github.com/openpermit/tasks">the GitHub tasks repo</a> or get 
       in contact with us at <a href="mailto:support@epermithub.org">support@epermithub.org</a>.
   </p>
 
-  <h3 id="opjs-samples">Tutorial</h3>
+  <h3 id="opjs-samples">Tutorials</h3>
   <p>Coming soon...</p>
 </div>            
 
+            <!-- Overview
+    ================================================== -->
+            <div class="bs-docs-section">
+                <h1 id="opjs" class="page-header">openpermit.js</h1>
+
+
+                <h3 id="opjs-intro">Introduction</h3>
+                <p>
+                    <strong>openpermit.js</strong> is a Javascript and Node.js library that provides wrappers around the Open Permit APIs.
+                    The library allows you to filter permit requirement checklists, calculate fees and wraps API calls to make them easy to invoke.
+                </p>
+
+
+                <h3 id="opjs-releases">Releases</h3>
+                <p>
+                    Currently <strong>openpermit.js</strong> is at v0.3.0. The library is under heavy research and development and the API is very unstable. We encourage you to
+                    <a href="downloads/openpermit.js">download</a> and play with it, but do not expect the API to remain consistent.
+                </p>
+                <p>
+                    Even better if you would like to contribute or have any feedback, head over to <a href="https://github.com/openpermit/openpermit.js">the GitHub repo</a> or get
+                    in contact with us at <a href="mailto:support@epermithub.org">support@epermithub.org</a>.
+                </p>
+
+                <h3 id="opjs-samples">Tutorial</h3>
+                <p>Coming soon...</p>
+            </div>
 
 
 
@@ -170,13 +193,21 @@
 </li>
 
 <li>
-  <a href="#opjs">openpermit.js</a>
+  <a href="#impl">Reference Implementations</a>
   <ul class="nav">
-    <li><a href="#opjs-intro">Introduction</a></li>
-    <li><a href="#opjs-releses">Releases</a></li>
-    <li><a href="#opjs-samples">Tutorial</a></li>
+    <li><a href="#impl-intro">Introduction</a></li>
+    <li><a href="#impl-releses">Releases</a></li>
+    <li><a href="#impl-samples">Tutorials</a></li>
   </ul>
 </li>
+                <li>
+                    <a href="#opjs">openpermit.js</a>
+                    <ul class="nav">
+                        <li><a href="#opjs-intro">Introduction</a></li>
+                        <li><a href="#opjs-releses">Releases</a></li>
+                        <li><a href="#opjs-samples">Tutorial</a></li>
+                    </ul>
+                </li>
               
             </ul>
             <a class="back-to-top" href="#top">
