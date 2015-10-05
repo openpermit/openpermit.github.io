@@ -1,0 +1,681 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+  title: 'OpenPermit API Specification'
+  description: >
+    ## Overview
+    
+    The OpenPermit Specification presents permit information, requirements, application details and other relevant permit process information in a unified and
+    standardized format. The API also covers operations for permit processes such as applying for a permit, submitting requirements (i.e. documents, construction
+    plans, etc.) and retrieving permit status information. These APIs will allow developers to build applications to streamline, automate and help visualize different
+    aspects of the permitting process in jurisdictions.
+    
+    
+    The OpenPermit API defines a large set of operations with the aim to support all parts of the permitting process in a jurisdiction. However, moving the entire
+    permitting process to be electronic, all in one shot, could be quite a big task, not to mention too disruptive for many jurisdictions. We expect that many jurisdictions
+    will not implement the entire specification in one pass, but they will gradually move part of their permitting workflows to be electronic. To this end, we have tried to
+    divide the API into sections that can be implemented in isolation and will allow for gradual adoption of OpenPermit. These sections have been aligned with specific services
+    that can be offered by a jurisdiction individually, but could also all be part of a 100% electronic permitting process. 
+host: mdc.openpermit.org
+basePath: /op
+paths:
+  /permits:
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets permits in BLDS format.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number to retrieve.
+          required: false
+          type: string
+          format: 
+        - name: address
+          in: path
+          description: Address of the location where to retrieve permits.
+          required: false
+          type: string
+          format:
+        - name: bbox
+          in: path
+          description: Bounding box to search for geospatial results within. The box is defined by "west, south, east, north" coordinates of longitude, latitude, in a EPSG:4326 decimal degrees.
+          required: false
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            title: 
+            type: array
+            items:
+              $ref: '#/definitions/Permit'
+        '400':
+          description: Error finding boundary box.
+    post:
+      tags:
+        - Permits
+      description: Creates a new permit. (Not implemented yet)
+      parameters:
+        - in: path
+          name: TBD
+          description: Fields to create a permit.
+          required: true
+          type: string
+      responses:
+        '405': Invalid input.
+        
+  '/permits/{number}':
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets a permit in BLDS format.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number to retrieve.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Permit'
+        '404':
+          description: Permit not found.
+    put:
+      tags:
+        - Permits
+      description: |
+        Updates a permit. (Not implemented yet)
+      parameters:
+        - name: number
+          in: path
+          description: Permit number to update.
+          required: true
+          type: string
+          format: 
+        - in: path
+          name: TBD
+          description: Fields to update a permit (TBD).
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input.
+    
+  '/permits/{number}/timeline':
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets the timeline of a permit, a list of all prior and current statuses of a permit.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number for which to retrieve the timeline.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PermitStatus'
+        '404':
+          description: Permit status not found.
+          
+  '/permits/{number}/inspections':
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets the inspections for a permit.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number for which to retrieve inspections.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Inspection'
+        '404':
+          description: Inspections not found.
+          
+    post:
+      tags:
+        - Permits
+      description: |
+        Schedules an inspection for a permit. (Not implemented yet)
+      parameters:
+        - name: number
+          in: path
+          description: Permit number to add inspection.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: TBD
+        '404':
+          description: Permit id provided not found.
+          
+  '/permits/{number}/inspections/{inspectionId}':
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets an inspection for a permit.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number.
+          required: true
+          type: string
+          format: 
+        - name: inspectionId
+          in: path
+          description: Inspection id.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            $ref: '#/definitions/Inspection'
+        '404':
+          description: Inspection for this permit not found.
+          
+  '/permits/{number}/inspections/{inspectionId}/comments':
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets comments for an inspection. (Not implemented yet)
+      parameters:
+        - name: number
+          in: path
+          description: Permit number.
+          required: true
+          type: string
+          format: 
+        - name: inspectionId
+          in: path
+          description: Inspection id.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response (TBD).
+          
+        '404':
+          description: Inspection for this permit not found.
+          
+  '/permits/{number}/contractors':
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets the contractors for a permit.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number for which retrieve contractors.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Contractor'
+        '404':
+          description: Contractors not found.
+  
+  '/permits/{number}/revisions':
+    get:
+      tags:
+        - Plan Review
+      description: |
+        Retrieves the plan check revisions for a specific permit.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number for which to retrieve revisions.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TBD'  
+        '404':
+          description: Plan check revisions not found.       
+          
+  '/permits/{number}/markups':
+    get:
+      tags:
+        - Plan Review
+      description: |
+        Retrieves the plan check markups or comments for a specific permit.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number for which to retrieve markups or comments.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TBD'  
+        '404':
+          description: Plan check markups not found.
+          
+  '/permits/{number}/contractors/{contractorId}':
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets a contractor for a permit.
+      parameters:
+        - name: number
+          in: path
+          description: Permit number.
+          required: true
+          type: string
+          format: 
+        - name: contractorId
+          in: path
+          description: Contractor id.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+              $ref: '#/definitions/Contractor'
+        '404':
+          description: Contractor not found.
+          
+  '/permits/types':
+    get:
+      tags:
+        - Permits
+      description: |
+        Gets the permit types.
+      parameters:
+        
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PermitType'
+        '400':
+          description: Error retrieving permit types.
+          
+  '/permits/types{id}/checklist':
+    get:
+      tags:
+        - Requirements
+      description: |
+        Retrieves a permit / project type checklist containing the requirements for the specified permit / project type including project detail information, documents to be submitted, fee schedule, plan review disciplines and subpermits if applicable.
+      parameters:
+        - name: id
+          in: path
+          description: Permit type id for the checklist to be retrieved.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TBD'  
+        '400':
+          description: Error retrieving checklist.
+          
+  '/permits/types{id}/application':
+    get:
+      tags:
+        - Requirements
+      description: |
+        Retrieves the set of information collected to start the application process for a particular type of permit.
+      parameters:
+        - name: id
+          in: path
+          description: Permit type id for the application to be retrieved.
+          required: true
+          type: string
+          format: 
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TBD'
+        '404':
+          description: Id provided not found.
+        '400':
+          description: Error retrieving application.
+          
+  '/permits/forms':
+    get:
+      tags:
+        - Requirements
+      description: |
+        Retrieves the set of information collected to start the application process for a particular type of permit.
+      parameters:
+      responses:
+        '200':
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Form'
+        '404':
+          description: Id provided not found.
+        '400':
+          description: Error retrieving application.
+          
+definitions:
+  Permit:
+    type: object
+    properties:
+      permitNum:
+        type: string
+      description:
+        type: string
+      issuedDate:
+        type: string
+        format: date-time
+      completedDate:
+        type: string
+        format: date-time
+      statusCurrent:
+        type: string
+      originalAddress1:
+        type: string
+      originalAddress2:
+        type: string
+      originalCity:
+        type: string
+      originalState:
+        type: string
+      originalZip:
+        type: string
+      jurisdiction:
+        type: string
+      permitClass:
+        type: string
+      permitClassMapped:
+        type: string
+      statusCurrentMapped:
+        type: string
+      appliedDate:
+        type: string
+        format: date-time
+      workClass:
+        type: string
+      workClassMapped:
+        type: string
+      permitType:
+        type: string
+      permitTypeMapped:
+        type: string
+      permitTypeDesc:
+        type: string
+      statusDate:
+        type: string
+        format: date-time
+      totalSqFt:
+        type: integer
+        format: int32
+      link:
+        type: string
+      latitude:
+        type: number
+        format: double
+      longitude:
+        type: number
+        format: double
+      estProjectCost:
+        type: number
+        format: double
+      housingUnits:
+        type: integer
+        format: int32
+      pin:
+        type: string
+      contractorCompanyName:
+        type: string
+      contractorTrade:
+        type: string
+      contractorTradeMapped:
+        type: string
+      contractorLicNumber:
+        type: string
+      contractorStateLic:
+        type: string
+      proposedUse:
+        type: string
+      addedSqFt:
+        type: integer
+        format: int32
+      removedSqFt:
+        type: integer
+        format: int32
+      expiresDate:
+        type: string
+        format: date-time
+      coIssuedDate:
+        type: string
+        format: date-time
+      holdDate:
+        type: string
+        format: date-time
+      voidDate:
+        type: string
+        format: date-time
+      projectName:
+        type: string
+      projectId:
+        type: string
+      totalFinishedSqFt:
+        type: integer
+        format: int32
+      totalUnfinishedSqFt:
+        type: integer
+        format: int32
+      totalHeatedSqFt:
+        type: integer
+        format: int32
+      totalUnheatedSqFt:
+        type: integer
+        format: int32
+      totalAccSqFt:
+        type: integer
+        format: int32
+      totalSprinkledSqFt:
+        type: integer
+        format: int32
+      extraFields:
+        type: string
+      publisher:
+        type: string
+      fee:
+        type: number
+        format: double
+      contractorFullName:
+        type: string
+      contractorCompanyDesc:
+        type: string
+      contractorPhone:
+        type: string
+      contractorAddress1:
+        type: string
+      contractorAddress2:
+        type: string
+      contractorCity:
+        type: string
+      contractorState:
+        type: string
+      contractorZip:
+        type: string
+      contractorEmail:
+        type: string
+  PermitStatus:
+    type: object
+    properties:
+      permitNum:
+        type: string
+      statusPrevious:
+        type: string
+      statusPreviousDate:
+        type: string
+        format: date-time
+      statusPreviousMapped:
+        type: string
+      comments:
+        type: string
+  Inspection:
+    type: object
+    properties:
+      permitNum:
+        type: string
+      inspType:
+        type: string
+      inspTypeMapped:
+        type: string
+      result:
+        type: string
+      resultMapped:
+        type: string
+      masterPermitNum:
+        type: string
+      scheduledDate:
+        type: string
+        format: date-time
+      inspectedDate:
+        type: string
+        format: date-time
+      inspectionNotes:
+        type: string
+      description:
+        type: string
+      final:
+        type: number
+        format: int32
+      requestDate:
+        type: string
+        format: date-time
+      desiredDate:
+        type: string
+        format: date-time
+      reInsection:
+        type: number
+        format: int32
+      inspector:
+        type: string
+      id:
+        type: string
+  Contractor:
+    type: object
+    properties:
+      companyName:
+        type: string
+      trade:
+        type: string
+      tradeMapped:
+        type: string
+      licenseNumber:
+        type: string
+      stateLicensed:
+        type: string
+      fullName:
+        type: string
+      companyDescription:
+        type: string
+      phone:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      state:
+        type: string
+      zip:
+        type: string
+      email: 
+        type: string
+  PermitType:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Service endpoint assigned identifier for the permit type.
+      name:
+        type: string
+        description: Short description of the permit.
+      desc:
+        type: string
+        description: Long description or help text for the permit type.
+      group:
+        type: string
+        description: A category to group this permit type within. This provides a way to group several permit types under one category.
+  Form:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Short description of the form.
+        required: true
+      description:
+        type: string
+        description: Long description or help text for the form.
+      url:
+        type: string
+        description: URL where the form document can be retrieved.
+        required: true
+      group:
+        type: string
+        description: A category to group this form within. This provides a way to group several forms under one category.
+  TBD:
+    type: object
+    properties:
+      TBD:
+        type: string
+        description: TBD.
+        required: true
+		
+      
