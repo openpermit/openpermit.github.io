@@ -11,7 +11,7 @@ Have a bug or a feature request? Please first search for existing and closed iss
 
 ## Documentation
 
-OpenPermit documentation, included in this repo, is built with [Swagger](http://swagger.io) and publicly hosted on GitHub Pages at <http://www.openpermit.org/docs/index.html>. The docs may also be run locally.
+The official OpenPermit API specification and documentation, included in this repo under the docs folder, is built with [Swagger](http://swagger.io) and publicly hosted on GitHub Pages at <http://www.openpermit.org/docs/index.html>. The docs may also be run locally.
 
 ## Community
 
