@@ -27,19 +27,19 @@ paths:
         Gets permits in BLDS format.
       parameters:
         - name: number
-          in: path
+          in: query
           description: Permit number to retrieve.
           required: false
           type: string
           format: 
         - name: address
-          in: path
+          in: query
           description: Address of the location where to retrieve permits.
           required: false
           type: string
           format:
         - name: bbox
-          in: path
+          in: query
           description: Bounding box to search for geospatial results within. The box is defined by "west, south, east, north" coordinates of longitude, latitude, in EPSG:4326 decimal
             degrees. This is also commonly referred to by minX, minY, maxX, maxY (where longitude is the X-axis, and latitude is the Y-axis), or also SouthWest corner and NorthEast
             corner. This conforms to OpenSearch Geo Extensions.
