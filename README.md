@@ -22,7 +22,8 @@ Have a bug or a feature request? Please first search for existing and closed iss
 
 ## Contributing
 
-Please read through our [contributing guidelines](https://github.com/openpermit/OpenPermit.NET/blob/master/CONTRIBUTE.md). Included are directions for opening issues, coding standards, and notes on development.
+Please read through our [contributing guidelines](https://github.com/openpermit/openpermit.github.io/blob/master/CONTRIBUTE.md). 
+Included are directions for opening issues, coding standards, and notes on development.
 
 ## Documentation
 
