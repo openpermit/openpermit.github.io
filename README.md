@@ -1,4 +1,4 @@
-##Open Permit Specification##
+##OpenPermit Specification##
 
 The OpenPermit Specification presents permit information, requirements, application details and other relevant permit process information in a unified and standardized format. The API also covers operations for permit processes such as applying for a permit, submitting requirements (i.e. documents, construction plans, etc.) and retrieving permit status information. These APIs will allow developers to build applications to streamline, automate and help visualize different aspects of the permitting process in jurisdictions.
 
