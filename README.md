@@ -8,7 +8,7 @@ The OpenPermit API defines a large set of operations with the aim to support all
 
 OpenPermit is based on the work of different standards groups and organizations. The specification strives to reuse existing, widely used standards as much as possible. 
 
-Permitting domain data schemas and formats returned by the APIs follow the [BLDS Specification](http://permitdata.org). 
+Permitting domain data schemas and formats returned by the APIs follow the [BLDS Specification](http://permitdata.org) where applicable. 
 
 Geospatial Data formats follow the [GeoJSON standard](http://geojson.org/geojson-spec.html).
 
