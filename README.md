@@ -10,7 +10,7 @@ OpenPermit is based on the work of different standards groups and organizations.
 
 Permitting domain data schemas and formats returned by the APIs follow the [BLDS Specification](http://permitdata.org) where applicable. 
 
-Geospatial Data formats follow the [GeoJSON standard](http://geojson.org/geojson-spec.html).
+Geospatial data response formats follow the [GeoJSON standard](http://geojson.org/geojson-spec.html).
 
 Geospatial Search features follow [OpenSearch Geo Extensions Draft Standard](http://www.opensearch.org/Specifications/OpenSearch/Extensions/Geo/1.0/Draft_2).
 
