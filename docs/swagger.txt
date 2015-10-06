@@ -40,10 +40,12 @@ paths:
           format:
         - name: bbox
           in: path
-          description: Bounding box to search for geospatial results within. The box is defined by "west, south, east, north" coordinates of longitude, latitude, in a EPSG:4326 decimal degrees.
+          description: Bounding box to search for geospatial results within. The box is defined by "west, south, east, north" coordinates of longitude, latitude, in EPSG:4326 decimal
+            degrees. This is also commonly referred to by minX, minY, maxX, maxY (where longitude is the X-axis, and latitude is the Y-axis), or also SouthWest corner and NorthEast
+            corner. This conforms to OpenSearch Geo Extensions.
           required: false
           type: string
-          format: 
+          format:
       responses:
         '200':
           description: Successful response.
@@ -53,7 +55,7 @@ paths:
             items:
               $ref: '#/definitions/Permit'
         '400':
-          description: Error finding boundary box.
+          description: Malformed bbox parameter.
     post:
       tags:
         - Permits
@@ -659,14 +661,12 @@ definitions:
       name:
         type: string
         description: Short description of the form.
-        required: true
       description:
         type: string
         description: Long description or help text for the form.
       url:
         type: string
         description: URL where the form document can be retrieved.
-        required: true
       group:
         type: string
         description: A category to group this form within. This provides a way to group several forms under one category.
@@ -676,6 +676,5 @@ definitions:
       TBD:
         type: string
         description: TBD.
-        required: true
 		
       
