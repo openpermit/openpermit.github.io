@@ -338,10 +338,10 @@ paths:
             type: array
             items:
               $ref: '#/definitions/PermitType'
-        '400':
+        '500':
           description: Error retrieving permit types.
           
-  '/permits/types{id}/checklist':
+  '/permits/types/{id}/checklist':
     get:
       tags:
         - Requirements
@@ -361,10 +361,10 @@ paths:
             type: array
             items:
               $ref: '#/definitions/TBD'  
-        '400':
+        '500':
           description: Error retrieving checklist.
           
-  '/permits/types{id}/application':
+  '/permits/types/{id}/application':
     get:
       tags:
         - Requirements
@@ -386,7 +386,7 @@ paths:
               $ref: '#/definitions/TBD'
         '404':
           description: Id provided not found.
-        '400':
+        '500':
           description: Error retrieving application.
           
   '/permits/forms':
@@ -394,7 +394,7 @@ paths:
       tags:
         - Requirements
       description: |
-        Retrieves the set of information collected to start the application process for a particular type of permit.
+        Retrieves the list forms for the jurisdiction.
       parameters:
       responses:
         '200':
@@ -403,10 +403,8 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Form'
-        '404':
-          description: Id provided not found.
-        '400':
-          description: Error retrieving application.
+        '500':
+          description: Error retrieving forms.
           
 definitions:
   Permit:
