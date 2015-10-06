@@ -4,6 +4,16 @@ The OpenPermit Specification presents permit information, requirements, applicat
 
 The OpenPermit API defines a large set of operations with the aim to support all parts of the permitting process in a jurisdiction. However, moving the entire permitting process to be electronic, all in one shot, could be quite a big task, not to mention too disruptive for many jurisdictions. We expect that many jurisdictions will not implement the entire specification in one pass, but they will gradually move part of their permitting workflows to be electronic. To this end, we have tried to divide the API into sections that can be implemented in isolation and will allow for gradual adoption of OpenPermit. These sections have been aligned with specific services that can be offered by a jurisdiction individually, but could also all be part of a 100% electronic permitting process.
 
+## Data schemas and other standards
+
+OpenPermit is based on the work of different standards groups and organizations. The specification strives to reuse existing, widely used standards as much as possible. 
+
+Permitting domain data schemas and formats returned by the APIs follow the [BLDS Specification](http://permitdata.org). 
+
+Geospatial Data formats follow the [GeoJSON standard](http://geojson.org/geojson-spec.html)
+
+Geospatial Search features follow [OpenSearch Geo Extensions Draft Standard](http://www.opensearch.org/Specifications/OpenSearch/Extensions/Geo/1.0/Draft_2)
+
 ## Bugs and feature requests
 
 Have a bug or a feature request? Please first search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/openpermit/openpermit.github.io/issues/).
