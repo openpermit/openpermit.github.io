@@ -46,6 +46,16 @@ paths:
           required: false
           type: string
           format:
+        - name: types
+          in: query
+          description: Filter that specifies which types to retrieve. Valid values (master,building,mechanical,electrical,plumbing,fire)
+          type: string
+          format:
+        - name: fields
+          in: query
+          description: Filter that specifies which set of columns to retrieve. Valid values (geo,required,recommended,optional,all)
+          type: string
+          format:
       responses:
         '200':
           description: Successful response.
