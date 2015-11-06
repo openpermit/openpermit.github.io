@@ -48,12 +48,32 @@ paths:
           format:
         - name: types
           in: query
-          description: Filter that specifies which types to retrieve. Valid values (master,building,mechanical,electrical,plumbing,fire)
+          description: Filter that specifies which types to retrieve. Valid values (master,building,mechanical,electrical,plumbing,fire).
           type: string
           format:
+        - name: status
+          in: query
+          description: Comma delimited list of status values to use as filter. Valid values (Application Acceptance,In Review,Permit Issued,Inspection Phase,Permit Finaled,Permit Cancelled)
+          type: string
+          format:
+        - name: date
+          in: query
+          description: Which date to use as filter. Valid values (applied,issued,closed,expired). Default value **applied**.
+          type: string
+          format:
+        - name: from
+          in: query
+          description: From start date to filter permits.
+          type: string
+          format: date
+        - name: to
+          in: query
+          description: To end date used to filter permits. Default value **today's date**.
+          type: string
+          format: date
         - name: fields
           in: query
-          description: Filter that specifies which set of columns to retrieve. Valid values (geo,required,recommended,optional,all)
+          description: Filter that specifies which set of columns to retrieve. Valid values (geo,required,recommended,optional,all). Default value **all**.
           type: string
           format:
       responses:
@@ -65,7 +85,7 @@ paths:
             items:
               $ref: '#/definitions/Permit'
         '400':
-          description: Malformed bbox parameter.
+          description: Malformed or invalid parameter.
     post:
       tags:
         - Permits
