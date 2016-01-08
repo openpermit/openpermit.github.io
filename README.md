@@ -36,6 +36,10 @@ Get updates on OpenPermit development and chat with the project maintainers and 
 * Follow [@openpermit on Twitter](https://twitter.com/openpermit).
 * Contact us [directly](mailto:support@openpermit.org).
 
+## Current Roadmap
+
+We are always looking for ideas that will help grow the OpenPermit community. We keep the current roadmap with what we are planning to implement in our wiki [home]https://github.com/openpermit/openpermit.github.io/wiki
+
 ## Copyright and license
 
 Code and documentation copyright 2015 OpenPermit Foundation. The specification is released under [Creative Commons](http://creativecommons.org/licenses/by/3.0/).
