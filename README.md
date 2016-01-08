@@ -38,7 +38,7 @@ Get updates on OpenPermit development and chat with the project maintainers and 
 
 ## Current Roadmap
 
-We are always looking for ideas that will help grow the OpenPermit community. We keep the current roadmap with what we are planning to implement in our wiki [home]https://github.com/openpermit/openpermit.github.io/wiki
+We are always looking for ideas that will help grow the OpenPermit community. We keep the current roadmap with what we are planning to implement in our wiki [home](https://github.com/openpermit/openpermit.github.io/wiki)
 
 ## Copyright and license
 
