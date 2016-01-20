@@ -42,5 +42,5 @@ We are always looking for ideas that will help grow the OpenPermit community. We
 
 ## Copyright and license
 
-Code and documentation copyright 2015 OpenPermit Foundation. The specification is released under [Creative Commons](http://creativecommons.org/licenses/by/3.0/).
+Code and documentation copyright 2016 OpenPermit Foundation. The specification is released under [Creative Commons](http://creativecommons.org/licenses/by/3.0/).
 
